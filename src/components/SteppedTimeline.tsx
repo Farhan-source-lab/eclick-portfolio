@@ -196,7 +196,7 @@ export const SteppedTimeline: React.FC = () => {
     <section
       id="architecture"
       ref={sectionRef}
-      className="relative py-28 md:py-36 bg-[#FBF9F4] border-b border-neutral-200/70 overflow-hidden"
+      className="relative py-28 md:py-36 bg-white border-b border-neutral-200/70 overflow-hidden"
     >
       {/* Subtle fine technical grid */}
       <div className="absolute inset-0 bg-tech-grid opacity-40 pointer-events-none" />

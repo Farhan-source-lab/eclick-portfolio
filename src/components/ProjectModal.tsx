@@ -11,7 +11,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm animate-fadeIn">
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[28px] bg-[#FBFAF7] border border-neutral-300 shadow-2xl p-6 sm:p-10 text-neutral-900">
+      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-[28px] bg-white border border-neutral-200/90 shadow-2xl p-6 sm:p-10 text-neutral-900">
         
         {/* Close Button */}
         <button
@@ -52,7 +52,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
             {project.focusPoints.map((point) => (
               <span
                 key={point}
-                className="px-3.5 py-1.5 rounded-full bg-white border border-neutral-300 text-xs font-medium text-neutral-800 shadow-2xs"
+                className="px-3.5 py-1.5 rounded-full bg-blue-50/80 border border-blue-200/70 text-xs font-medium text-blue-950 shadow-2xs"
               >
                 {point}
               </span>
@@ -65,7 +65,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
           <span className="text-[10px] font-mono tracking-widest text-neutral-400 uppercase block mb-1">
             KEY CAPABILITIES & DEPLOYMENT SCOPE
           </span>
-          <div className="p-4 rounded-xl bg-neutral-100 border border-neutral-200 text-xs font-mono text-neutral-700 mb-4">
+          <div className="p-4 rounded-xl bg-blue-50/50 border border-blue-200/60 text-xs font-mono text-blue-950 mb-4">
             SCOPE: {project.scope}
           </div>
 
@@ -84,7 +84,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
           <a
             href="#contact"
             onClick={onClose}
-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-medium tracking-wider uppercase transition-colors"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] hover:bg-blue-600 text-white text-xs font-medium tracking-wider uppercase shadow-md transition-colors"
           >
             <span>Request Similar Architecture</span>
             <ArrowRight className="w-3.5 h-3.5" />

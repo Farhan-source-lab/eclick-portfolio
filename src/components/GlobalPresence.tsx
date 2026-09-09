@@ -1,14 +1,13 @@
-import React from 'react';
 import { Globe, Phone, MapPin, Clock } from 'lucide-react';
 import { companyData } from '../data/company';
 
-export const GlobalPresence: React.FC = () => {
+export const GlobalPresence = () => {
   return (
-    <section className="py-28 md:py-36 bg-[#F7F6F0] border-b border-neutral-200/70 overflow-hidden">
+    <section className="py-28 md:py-36 bg-white border-b border-neutral-200/70 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-8 border-b border-neutral-300/70">
+        <div data-reveal="header" className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-8 border-b border-neutral-300/70">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-300 bg-white text-neutral-700 text-[11px] font-mono tracking-[0.2em] uppercase mb-4 shadow-2xs">
               <Globe className="w-3.5 h-3.5 text-blue-700" />
@@ -24,7 +23,7 @@ export const GlobalPresence: React.FC = () => {
         </div>
 
         {/* 4 Location Editorial Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
+        <div data-reveal="cards" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-12">
           {companyData.locations.map((loc) => (
             <div
               key={loc.code}

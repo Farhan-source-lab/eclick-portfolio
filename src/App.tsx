@@ -3,6 +3,7 @@ import Lenis from 'lenis';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+import { useScrollReveal } from './hooks/useScrollReveal';
 import { CustomCursor } from './components/CustomCursor';
 import { ScrollProgress } from './components/ScrollProgress';
 import { Navbar } from './components/Navbar';
@@ -25,6 +26,8 @@ import { Footer } from './components/Footer';
 gsap.registerPlugin(ScrollTrigger);
 
 export function App() {
+  useScrollReveal();
+
   useEffect(() => {
     // Initialize Lenis for smooth inertia scrolling
     const lenis = new Lenis({
@@ -51,7 +54,7 @@ export function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen bg-[#FBFAF7] text-[#111111] overflow-x-hidden selection:bg-blue-900 selection:text-white">
+    <div className="relative min-h-screen bg-white text-[#111111] overflow-x-hidden selection:bg-blue-900 selection:text-white">
       {/* Subtle UI Enhancements */}
       <CustomCursor />
       <ScrollProgress />

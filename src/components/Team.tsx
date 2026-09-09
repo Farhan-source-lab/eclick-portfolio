@@ -10,21 +10,21 @@ export const Team = () => {
   const renderMemberCard = (member: TeamMember, isSmall = false) => (
     <div
       key={member.id}
-      className={`p-6 sm:p-7 rounded-[24px] bg-white border border-neutral-200/90 shadow-sm hover:shadow-md hover:border-neutral-300 transition-all duration-300 flex flex-col justify-between group ${
+      className={`p-6 sm:p-7 rounded-[24px] bg-white border border-neutral-200/90 border-t-2 border-t-neutral-100 hover:border-t-blue-600 shadow-sm hover:shadow-xl hover:shadow-neutral-950/5 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group ${
         isSmall ? 'min-h-[190px]' : 'min-h-[220px]'
       }`}
     >
       <div>
         <div className="flex items-center justify-between pb-3 border-b border-neutral-100 mb-4">
-          <div className="w-10 h-10 rounded-full bg-neutral-100 border border-neutral-200 flex items-center justify-center font-mono text-xs font-bold text-neutral-800 group-hover:bg-neutral-900 group-hover:text-white transition-colors">
+          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-50 to-indigo-100/70 border border-blue-200/80 flex items-center justify-center font-mono text-xs font-bold text-blue-950 group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-all shadow-2xs">
             {member.initials}
           </div>
-          <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400 bg-neutral-50 px-2 py-0.5 rounded">
+          <span className="text-[10px] font-mono font-semibold uppercase tracking-wider text-blue-700 bg-blue-50/80 px-2.5 py-0.5 rounded-full border border-blue-200/60">
             {member.department}
           </span>
         </div>
 
-        <h4 className="font-serif-display text-xl font-semibold text-neutral-900 group-hover:text-neutral-950 transition-colors">
+        <h4 className="font-serif-display text-xl font-semibold text-neutral-950 group-hover:text-blue-950 transition-colors">
           {member.name}
         </h4>
         <span className="text-xs font-mono font-medium text-blue-700 block mt-1">
@@ -32,7 +32,7 @@ export const Team = () => {
         </span>
 
         {member.bio && (
-          <p className="text-xs text-neutral-500 font-normal leading-relaxed mt-3 line-clamp-2">
+          <p className="text-xs text-neutral-600 font-normal leading-relaxed mt-3 line-clamp-2">
             {member.bio}
           </p>
         )}
@@ -46,11 +46,11 @@ export const Team = () => {
   );
 
   return (
-    <section id="team" className="py-28 md:py-36 bg-[#F8F7F2] border-b border-neutral-200/70">
+    <section id="team" className="py-28 md:py-36 bg-white border-b border-neutral-200/70">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-20 pb-8 border-b border-neutral-300/70">
+        <div data-reveal="header" className="flex flex-col sm:flex-row sm:items-end justify-between mb-20 pb-8 border-b border-neutral-300/70">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-300 bg-white text-neutral-700 text-[11px] font-mono tracking-[0.2em] uppercase mb-4 shadow-2xs">
               <Users className="w-3.5 h-3.5 text-blue-700" />
@@ -69,7 +69,7 @@ export const Team = () => {
         <div className="space-y-8">
           
           {/* TIER 1: Founder & CEO Spotlight Card */}
-          <div className="p-8 sm:p-12 rounded-[32px] bg-neutral-900 text-white border border-neutral-800 shadow-2xl relative overflow-hidden group">
+          <div data-reveal="media" className="p-8 sm:p-12 rounded-[32px] bg-neutral-900 text-white border border-neutral-800 shadow-2xl relative overflow-hidden group">
             <div className="absolute inset-0 bg-tech-grid-dark opacity-20 pointer-events-none" />
 
             <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
@@ -117,17 +117,17 @@ export const Team = () => {
           </div>
 
           {/* TIER 2: Executive Management (2 Wide Cards) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div data-reveal="cards" className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {execs.map((exec) => renderMemberCard(exec, false))}
           </div>
 
           {/* TIER 3: Strategic Department Directors (3 Columns) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div data-reveal="cards" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {directors.map((dir) => renderMemberCard(dir, true))}
           </div>
 
           {/* TIER 4: Engineering & Commercial Specialists (3 Columns) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div data-reveal="cards" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {specialists.map((spec) => renderMemberCard(spec, true))}
           </div>
 

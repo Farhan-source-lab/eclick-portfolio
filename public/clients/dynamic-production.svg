@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 100" fill="none">
+  <!-- Dynamic Production Authentic Identity -->
+  <g>
+    <!-- dynamic Wordmark -->
+    <text x="20" y="50" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="34" font-weight="900" letter-spacing="-0.03em" fill="#0F172A">dynamic</text>
+    
+    <!-- Red PRODUCTION Badge -->
+    <rect x="110" y="55" width="98" height="16" rx="2" fill="#E11D48" />
+    <text x="159" y="67" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9.5" font-weight="800" letter-spacing="0.15em" text-anchor="middle" fill="#FFFFFF">PRODUCTION</text>
+    
+    <!-- Subtitle: FOCUS & COMMUNICATE -->
+    <text x="21" y="84" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="9" font-weight="700" letter-spacing="0.22em" fill="#1E293B">FOCUS &amp; COMMUNICATE</text>
+  </g>
+</svg>

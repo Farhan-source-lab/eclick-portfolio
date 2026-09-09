@@ -3,14 +3,19 @@
 @layer base {
   html {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #FBFAF7;
-    color: #111111;
+    background-color: #FFFFFF;
+    color: #0F172A;
   }
 
   body {
     margin: 0;
     padding: 0;
     overflow-x: hidden;
+  }
+
+  ::selection {
+    background-color: #2563EB;
+    color: #FFFFFF;
   }
 }
 
@@ -39,13 +44,13 @@
 
 /* Notebook Paper Horizontal Lined Background (Reference 2 & 3) */
 .bg-notebook-lines {
-  background-color: #FAF9F5;
+  background-color: #FFFFFF;
   background-image: repeating-linear-gradient(
     to bottom,
     transparent,
     transparent 31px,
-    rgba(226, 222, 212, 0.45) 31px,
-    rgba(226, 222, 212, 0.45) 32px
+    rgba(0, 0, 0, 0.04) 31px,
+    rgba(0, 0, 0, 0.04) 32px
   );
 }
 

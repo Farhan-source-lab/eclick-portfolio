@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 140" fill="none">
+  <!-- AIM UNITED GLOBAL Authentic Vector Logo -->
+  <g fill="#0D4F3F">
+    <!-- Center Apex Golden Dot -->
+    <circle cx="120" cy="44" r="6.5" fill="#E59819" />
+    
+    <!-- Twin Geometric Peaks (M & Chevron Structure) -->
+    <path d="M74 100 L104 38 L114 38 L94 100 Z" fill="#0D4F3F"/>
+    <path d="M104 44 L120 78 L136 44 L146 44 L120 95 Z" fill="#0D4F3F"/>
+    <path d="M144 38 L154 38 L184 100 L164 100 Z" fill="#0D4F3F"/>
+    
+    <!-- Global Subtitle Top-Right -->
+    <text x="166" y="36" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="11" font-weight="500" fill="#4B5563">Global</text>
+    
+    <!-- AIM UNITED Wordmark -->
+    <text x="120" y="122" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="15.5" font-weight="800" letter-spacing="0.16em" text-anchor="middle" fill="#0D4F3F">AIM UNITED</text>
+  </g>
+</svg>

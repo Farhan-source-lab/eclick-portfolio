@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 80" fill="none">
+  <!-- Authentic Boxoo Script Identity from Deck -->
+  <g fill="#18181B" stroke="#18181B">
+    <!-- 'b' -->
+    <path d="M 28 20 C 28 16 32 16 34 16 C 36 16 38 18 38 24 L 38 43 C 41 38 46 36 52 36 C 62 36 69 43 69 54 C 69 64 61 71 51 71 C 44 71 39 67 37 62 L 37 70 L 28 70 Z M 38 54 C 38 61 43 65 49 65 C 55 65 59 60 59 54 C 59 47 55 42 49 42 C 43 42 38 47 38 54 Z" stroke-width="1.5" stroke-linejoin="round" />
+    
+    <!-- 'o' -->
+    <path d="M 75 54 C 75 42 85 36 96 36 C 108 36 117 43 117 54 C 117 65 107 71 96 71 C 84 71 75 64 75 54 Z M 85 54 C 85 62 90 65 96 65 C 102 65 107 61 107 54 C 107 46 102 42 96 42 C 90 42 85 46 85 54 Z" stroke-width="1.5" />
+    
+    <!-- 'x' -->
+    <path d="M 122 38 L 138 54 L 123 70 L 133 70 L 144 58 L 154 70 L 165 70 L 149 54 L 164 38 L 153 38 L 144 49 L 133 38 Z" stroke-width="1.5" />
+    
+    <!-- First 'o' with connecting line -->
+    <circle cx="180" cy="54" r="14" fill="none" stroke="#18181B" stroke-width="7" />
+    
+    <!-- Second 'o' -->
+    <circle cx="206" cy="54" r="14" fill="none" stroke="#18181B" stroke-width="7" />
+    
+    <!-- Third 'o' -->
+    <circle cx="232" cy="54" r="14" fill="none" stroke="#18181B" stroke-width="7" />
+    
+    <!-- Crossbar linking through the three o's -->
+    <line x1="168" y1="54" x2="244" y2="54" stroke="#18181B" stroke-width="4.5" stroke-linecap="round" />
+  </g>
+</svg>

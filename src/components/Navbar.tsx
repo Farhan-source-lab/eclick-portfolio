@@ -30,7 +30,7 @@ export const Navbar: React.FC = () => {
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'py-3.5 bg-[#FBFAF7]/90 backdrop-blur-md border-b border-neutral-200/70 shadow-xs'
+            ? 'py-3.5 bg-white/90 backdrop-blur-md border-b border-neutral-200/70 shadow-xs'
             : 'py-6 bg-transparent'
         }`}
       >
@@ -85,7 +85,7 @@ export const Navbar: React.FC = () => {
 
       {/* Full-Screen Mobile Navigation Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 bg-[#FBFAF7] flex flex-col justify-between p-6 sm:p-10 animate-fadeIn">
+        <div className="fixed inset-0 z-50 bg-white flex flex-col justify-between p-6 sm:p-10 animate-fadeIn">
           {/* Top Bar inside Overlay */}
           <div className="flex items-center justify-between border-b border-neutral-200/80 pb-5">
             <div className="flex items-center">

@@ -7,11 +7,11 @@ export const Capabilities = () => {
   const activeService = servicesData[activeIdx];
 
   return (
-    <section id="capabilities" className="py-28 md:py-36 bg-[#FBFAF7] border-b border-neutral-200/70">
+    <section id="capabilities" className="py-28 md:py-36 bg-white border-b border-neutral-200/70">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Section Eyebrow */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-8 border-b border-neutral-200/80">
+        <div data-reveal="header" className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-8 border-b border-neutral-200/80">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-300 bg-white text-neutral-700 text-[11px] font-mono tracking-[0.2em] uppercase mb-4 shadow-2xs">
               <span>( CORE CAPABILITIES )</span>
@@ -35,7 +35,7 @@ export const Capabilities = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           
           {/* Left: Numbered Interactive List (7 cols) */}
-          <div className="lg:col-span-7 flex flex-col divide-y divide-neutral-200/80 border-y border-neutral-200/80">
+          <div data-reveal="cards" className="lg:col-span-7 flex flex-col divide-y divide-neutral-200/80 border-y border-neutral-200/80">
             {servicesData.map((svc, idx) => {
               const isActive = activeIdx === idx;
               return (

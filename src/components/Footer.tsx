@@ -1,14 +1,13 @@
-import React from 'react';
 import { ArrowUp, Globe, Mail, Phone } from 'lucide-react';
 import { companyData } from '../data/company';
 
-export const Footer: React.FC = () => {
+export const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
-    <footer className="py-16 bg-[#F5F4EE] text-neutral-900 border-t border-neutral-300/80">
+    <footer className="py-16 bg-white text-neutral-900 border-t border-neutral-200">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Main Footer Row */}

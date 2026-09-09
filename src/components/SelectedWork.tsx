@@ -26,14 +26,14 @@ export const SelectedWork = () => {
 
             <div className="grid grid-cols-2 gap-3">
               <div className="p-3.5 rounded-xl bg-neutral-800/80 border border-neutral-700">
-                <span className="text-[10px] font-mono text-neutral-400 block mb-1">AGGREGATE RISK SCORE</span>
-                <div className="text-2xl font-mono font-bold text-amber-400">87 / 100</div>
-                <span className="text-[10px] text-neutral-400 mt-1 block">Elevated Heuristic Stream</span>
+                <span className="text-[10px] font-mono text-neutral-400 block mb-1">DETECTION PIPELINE</span>
+                <div className="text-sm font-mono font-bold text-amber-400">ACTIVE INGESTION</div>
+                <span className="text-[10px] text-neutral-400 mt-1 block">Heuristic &amp; Semantic Stream</span>
               </div>
               <div className="p-3.5 rounded-xl bg-neutral-800/80 border border-neutral-700">
-                <span className="text-[10px] font-mono text-neutral-400 block mb-1">CONTAINMENT LATENCY</span>
-                <div className="text-2xl font-mono font-bold text-emerald-400">&lt; 40ms</div>
-                <span className="text-[10px] text-neutral-400 mt-1 block">Zero False Positives</span>
+                <span className="text-[10px] font-mono text-neutral-400 block mb-1">VERIFICATION LOGIC</span>
+                <div className="text-sm font-mono font-bold text-emerald-400">DETERMINISTIC</div>
+                <span className="text-[10px] text-neutral-400 mt-1 block">Multi-Layer Threat Validation</span>
               </div>
             </div>
 
@@ -58,7 +58,7 @@ export const SelectedWork = () => {
                 </span>
               </div>
               <span className="text-[10px] font-mono text-blue-400 bg-blue-950 px-2 py-0.5 rounded border border-blue-800">
-                12ms LATENCY
+                HIGH-THROUGHPUT ENGINE
               </span>
             </div>
 
@@ -95,7 +95,7 @@ export const SelectedWork = () => {
               <div className="flex items-center gap-2">
                 <DollarSign className="w-4 h-4 text-emerald-400" />
                 <span className="text-xs font-mono tracking-wider text-neutral-300">
-                  REVENUE INTELLIGENCE & INVOICE AI
+                  REVENUE INTELLIGENCE &amp; INVOICE AI
                 </span>
               </div>
               <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded border border-emerald-800">
@@ -103,23 +103,24 @@ export const SelectedWork = () => {
               </span>
             </div>
 
-            <div className="p-4 rounded-xl bg-neutral-800/70 border border-neutral-700 space-y-2">
+            <div className="p-4 rounded-xl bg-neutral-800/70 border border-neutral-700 space-y-3">
               <div className="flex items-center justify-between text-xs">
-                <span className="text-neutral-300 font-medium">Invoice Extraction Confidence</span>
-                <span className="font-mono text-emerald-400 font-bold">99.4%</span>
+                <span className="text-neutral-200 font-medium">Invoice Document Ingestion</span>
+                <span className="font-mono text-emerald-400 font-semibold">OCR VERIFIED</span>
               </div>
-              <div className="w-full bg-neutral-700 h-1.5 rounded-full overflow-hidden">
-                <div className="bg-emerald-500 h-full w-[99.4%] rounded-full" />
+              <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400 pt-1 border-t border-neutral-700/60">
+                <span>Multi-Currency Parsing</span>
+                <span className="text-neutral-300">Automated Line Item Extraction</span>
               </div>
-              <div className="flex items-center justify-between text-[10px] font-mono text-neutral-400 pt-1">
+              <div className="flex items-center justify-between text-[11px] font-mono text-neutral-400">
                 <span>Direct CRM Reconciliation</span>
-                <span>Zero Manual Keying</span>
+                <span className="text-neutral-300">Zero Manual Keying</span>
               </div>
             </div>
 
             <div className="p-3 rounded-xl bg-neutral-950 border border-neutral-800 flex items-center justify-between text-xs">
-              <span className="text-neutral-400">Revenue Predictive Velocity</span>
-              <span className="text-emerald-400 font-mono font-semibold">+18.4% Realized Pipeline</span>
+              <span className="text-neutral-400">Ledger Pipeline Status</span>
+              <span className="text-emerald-400 font-mono font-semibold">CONTINUOUS DUAL-SYNC</span>
             </div>
           </div>
         );
@@ -226,11 +227,11 @@ export const SelectedWork = () => {
   };
 
   return (
-    <section id="selected-work" className="py-28 md:py-36 bg-[#FBFAF7] border-b border-neutral-200/70">
+    <section id="selected-work" className="py-28 md:py-36 bg-white border-b border-neutral-200/70">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-20 pb-8 border-b border-neutral-200/80">
+        <div data-reveal="header" className="flex flex-col sm:flex-row sm:items-end justify-between mb-20 pb-8 border-b border-neutral-200/80">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-300 bg-white text-neutral-700 text-[11px] font-mono tracking-[0.2em] uppercase mb-4 shadow-2xs">
               <span>( SELECTED CASE STUDIES )</span>
@@ -251,7 +252,7 @@ export const SelectedWork = () => {
         </div>
 
         {/* Alternating Editorial Project List */}
-        <div className="space-y-20 sm:space-y-28">
+        <div data-reveal="cards" className="space-y-20 sm:space-y-28">
           {projectsData.map((project, idx) => {
             const isEven = idx % 2 === 0;
 
@@ -268,7 +269,7 @@ export const SelectedWork = () => {
                     <span className="font-serif-display text-2xl font-normal text-neutral-400">
                       {project.number}
                     </span>
-                    <span className="text-[11px] font-mono uppercase tracking-widest text-neutral-500">
+                    <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-blue-700 bg-blue-50/80 px-3 py-1 rounded-full border border-blue-200/60 shadow-2xs">
                       {project.category}
                     </span>
                   </div>
@@ -295,7 +296,7 @@ export const SelectedWork = () => {
                   <button
                     type="button"
                     onClick={() => setSelectedProject(project)}
-                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-neutral-900 hover:bg-neutral-800 text-white text-xs font-medium tracking-wider uppercase transition-colors"
+                    className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] hover:bg-blue-600 text-white text-xs font-medium tracking-wider uppercase shadow-md shadow-neutral-900/5 hover:shadow-blue-600/20 transition-all active:scale-[0.98]"
                   >
                     <span>View Case Breakdown</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />
@@ -304,7 +305,7 @@ export const SelectedWork = () => {
 
                 {/* Handcrafted Visual Console Column (7 cols) */}
                 <div className={`lg:col-span-7 ${isEven ? 'lg:order-2' : 'lg:order-1'}`}>
-                  <div className="p-3 rounded-[28px] bg-neutral-100 border border-neutral-200/90 shadow-sm">
+                  <div className="p-3 rounded-[28px] bg-white border border-neutral-200/90 shadow-xl shadow-neutral-950/5">
                     {renderProjectVisual(project)}
                   </div>
                 </div>

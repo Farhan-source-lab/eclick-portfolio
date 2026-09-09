@@ -1,47 +1,85 @@
-import React from 'react';
+import { useEffect, useRef } from 'react';
 import { clientsData } from '../data/clients';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export const Clients: React.FC = () => {
+gsap.registerPlugin(ScrollTrigger);
+
+export const Clients = () => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const logosRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!logosRef.current) return;
+
+    const items = logosRef.current.querySelectorAll('.client-logo-unit');
+    if (!items.length) return;
+
+    const ctx = gsap.context(() => {
+      gsap.fromTo(
+        items,
+        {
+          opacity: 0,
+          y: 28,
+        },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.75,
+          stagger: 0.08,
+          ease: 'power2.out',
+          scrollTrigger: {
+            trigger: logosRef.current,
+            start: 'top 82%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }, containerRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="clients" className="py-16 bg-[#F7F7F4] border-b border-neutral-200/60 overflow-hidden">
+    <section
+      id="clients"
+      ref={containerRef}
+      className="py-16 md:py-24 bg-[#FBFAF7] border-b border-neutral-200/60 overflow-hidden"
+    >
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         
-        {/* Minimal Eyebrow & Headline */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-10 pb-6 border-b border-neutral-200/60">
+        {/* Eyebrow & Headline */}
+        <div data-reveal="header" className="flex flex-col sm:flex-row sm:items-end justify-between mb-14 pb-6 border-b border-neutral-200/70">
           <div>
-            <span className="text-[11px] font-mono tracking-[0.25em] text-neutral-500 uppercase block mb-2">
-              ( CLIENT NETWORK )
+            <span className="text-[11px] font-mono tracking-[0.25em] text-neutral-500 uppercase block mb-2 font-medium">
+              ( OUR CLIENTS )
             </span>
             <h2 className="font-serif-display text-2xl sm:text-3xl text-neutral-900 font-normal">
               Trusted by businesses across industries.
             </h2>
           </div>
           <div className="mt-3 sm:mt-0 text-[11px] font-mono text-neutral-500 tracking-wider uppercase">
-            11 KEY ENTERPRISE PARTNERS
+            {clientsData.length} ENTERPRISE PARTNERS
           </div>
         </div>
 
-        {/* Logo Wall: Minimal, Crisp, Editorial Presentation */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        {/* Pure Logos Grid: No Boxes, No Cards, Sequential 1-by-1 Fade In */}
+        <div
+          ref={logosRef}
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-8 gap-y-10 sm:gap-x-10 sm:gap-y-12 items-center justify-items-center"
+        >
           {clientsData.map((client) => (
             <div
               key={client.id}
-              className="p-4 rounded-xl border border-neutral-200/80 bg-white/70 hover:bg-white hover:border-neutral-400 hover:shadow-xs transition-all duration-200 flex flex-col justify-between min-h-[96px] group"
+              className="client-logo-unit w-full h-16 sm:h-20 flex items-center justify-center p-2"
+              title={client.name}
             >
-              <div className="flex items-center justify-between">
-                <span className="text-[9px] font-mono text-neutral-400 group-hover:text-blue-700 transition-colors uppercase">
-                  CLIENT
-                </span>
-                <span className="text-neutral-300 text-xs font-mono">+</span>
-              </div>
-              <div>
-                <span className="font-serif-display text-sm sm:text-base font-bold text-neutral-900 tracking-tight block leading-tight group-hover:text-neutral-950">
-                  {client.name}
-                </span>
-                <span className="text-[10px] text-neutral-500 block truncate mt-0.5">
-                  {client.industry}
-                </span>
-              </div>
+              <img
+                src={client.logoUrl}
+                alt={`${client.name} logo`}
+                className="max-h-9 sm:max-h-11 w-auto max-w-[140px] object-contain select-none opacity-90 transition-opacity duration-300 hover:opacity-100"
+                loading="lazy"
+              />
             </div>
           ))}
         </div>
@@ -50,3 +88,5 @@ export const Clients: React.FC = () => {
     </section>
   );
 };
+
+

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 60" fill="none">
+  <!-- SAS Dental Clinic Mark -->
+  <g fill="currentColor">
+    <!-- Dental Cross & Tooth Aesthetic Monogram -->
+    <path d="M16 26 C16 20, 24 16, 28 20 C32 16, 40 20, 40 26 C40 34, 34 42, 28 46 C22 42, 16 34, 16 26 Z" stroke="currentColor" stroke-width="2.5" fill="none"/>
+    <circle cx="28" cy="27" r="3" fill="currentColor"/>
+    <!-- Typography -->
+    <text x="52" y="32" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="20" font-weight="800" letter-spacing="0.12em" fill="currentColor">SAS</text>
+    <text x="54" y="44" font-family="'Plus Jakarta Sans', system-ui, sans-serif" font-size="8.5" font-weight="600" letter-spacing="0.22em" fill="currentColor" opacity="0.65">DENTAL CLINIC</text>
+  </g>
+</svg>

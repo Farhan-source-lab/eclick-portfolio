@@ -66,11 +66,11 @@ export const MarketingSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-28 md:py-36 bg-[#F8F7F2] border-b border-neutral-200/70">
+    <section className="py-28 md:py-36 bg-white border-b border-neutral-200/70">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Section Header */}
-        <div className="max-w-3xl mb-20">
+        <div data-reveal="header" className="max-w-3xl mb-20">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-300 bg-white text-neutral-700 text-[11px] font-mono tracking-[0.2em] uppercase mb-4 shadow-2xs">
             <span>( DIGITAL MARKETING ENGINE )</span>
           </div>
@@ -83,7 +83,7 @@ export const MarketingSection: React.FC = () => {
         </div>
 
         {/* 3-Pillar Narrative Columns */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div data-reveal="cards" className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {pillars.map((pillar) => {
             const PillarIcon = pillar.icon;
             return (
