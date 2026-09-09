@@ -1,0 +1,117 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    background-color: #FBFAF7;
+    color: #111111;
+  }
+
+  body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+}
+
+.font-serif-display {
+  font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 120, 'SOFT' 40, 'WONK' 1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+
+.font-editorial {
+  font-family: 'Fraunces', 'Playfair Display', Georgia, serif;
+  font-optical-sizing: auto;
+  font-variation-settings: 'opsz' 90, 'SOFT' 30;
+  font-weight: 500;
+}
+
+.font-sans-ui {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.font-handwriting {
+  font-family: 'Caveat', cursive;
+}
+
+/* Notebook Paper Horizontal Lined Background (Reference 2 & 3) */
+.bg-notebook-lines {
+  background-color: #FAF9F5;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent,
+    transparent 31px,
+    rgba(226, 222, 212, 0.45) 31px,
+    rgba(226, 222, 212, 0.45) 32px
+  );
+}
+
+/* Technical Subtle Grid */
+.bg-tech-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+}
+
+.bg-tech-grid-dark {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+}
+
+/* Diamond Cut-Node Glow Animation for Stepped Timeline */
+.cut-node {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cut-node.is-lit {
+  background-color: #9B7739 !important;
+  border-color: #C5A265 !important;
+  box-shadow: 0 0 20px rgba(155, 119, 57, 0.65), 0 0 40px rgba(155, 119, 57, 0.25) !important;
+  transform: rotate(45deg) scale(1.15) !important;
+  opacity: 1 !important;
+}
+
+/* Editorial Underline Animation */
+.rd-underline {
+  position: relative;
+  display: inline-block;
+}
+
+.rd-underline::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.rd-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F5EE;
+}
+::-webkit-scrollbar-thumb {
+  background: #C4BFB3;
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9B7739;
+}
