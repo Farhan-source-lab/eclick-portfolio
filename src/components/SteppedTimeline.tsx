@@ -39,7 +39,7 @@ const milestones: Milestone[] = [
     description:
       'Engineering custom LLM fine-tuning, retrieval-augmented generation (RAG), and cloud-native backend APIs engineered for enterprise throughput.',
     deliverable: 'Agentic Workflows & Multi-DB Architecture',
-    indentClass: 'lg:ml-16',
+    indentClass: 'lg:ml-[10%] xl:ml-[12%]',
     linkUrl: '#ai-platform'
   },
   {
@@ -51,7 +51,7 @@ const milestones: Milestone[] = [
     description:
       'Bridging design intuition with corporate authority to construct unified design systems, brand guidelines, and high-conversion web interfaces.',
     deliverable: 'Design Tokens, UI Prototypes & Assets',
-    indentClass: 'lg:ml-32',
+    indentClass: 'lg:ml-[20%] xl:ml-[24%]',
     linkUrl: '#selected-work'
   },
   {
@@ -63,7 +63,7 @@ const milestones: Milestone[] = [
     description:
       'Deploying algorithmic SEO, multi-channel performance advertising, and reputation management to build continuous enterprise conversion funnels.',
     deliverable: 'Full-Funnel Conversion Infrastructure',
-    indentClass: 'lg:ml-48',
+    indentClass: 'lg:ml-[30%] xl:ml-[36%]',
     linkUrl: '#capabilities'
   },
   {
@@ -75,7 +75,7 @@ const milestones: Milestone[] = [
     description:
       'Executive KPI command centers, continuous pipeline monitoring, and proactive model retraining to ensure permanent competitive advantage.',
     deliverable: 'Executive Intelligence & 24/7 SLA Support',
-    indentClass: 'lg:ml-48',
+    indentClass: 'lg:ml-[40%] xl:ml-[48%]',
     linkUrl: '#contact'
   }
 ];
@@ -124,7 +124,11 @@ export const SteppedTimeline: React.FC = () => {
       setSvgPathD(d);
     };
 
-    updatePath();
+    // Initial calculation with double RAF to ensure layout & fonts settle
+    requestAnimationFrame(() => {
+      updatePath();
+      requestAnimationFrame(updatePath);
+    });
 
     const ro = new ResizeObserver(() => {
       updatePath();
@@ -133,10 +137,12 @@ export const SteppedTimeline: React.FC = () => {
     ro.observe(section);
 
     window.addEventListener('resize', updatePath);
+    window.addEventListener('load', updatePath);
 
     return () => {
       ro.disconnect();
       window.removeEventListener('resize', updatePath);
+      window.removeEventListener('load', updatePath);
     };
   }, []);
 
@@ -162,9 +168,9 @@ export const SteppedTimeline: React.FC = () => {
         ease: 'none',
         scrollTrigger: {
           trigger: section,
-          start: 'top 65%',
-          end: 'bottom 80%',
-          scrub: 0.8,
+          start: 'top 70%',
+          end: 'bottom 85%',
+          scrub: 0.6,
           onUpdate: (self) => {
             const progress = self.progress;
             // Illuminate nodes progressively
@@ -191,6 +197,34 @@ export const SteppedTimeline: React.FC = () => {
 
     return () => ctx.revert();
   }, [svgPathD]);
+
+  // Mobile-only node illumination (screens < 1024px, zero impact on desktop)
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const mm = gsap.matchMedia();
+    mm.add('(max-width: 1023px)', () => {
+      const nodes = section.querySelectorAll<HTMLElement>('.cut-node');
+      const cards = section.querySelectorAll<HTMLElement>('.milestone-card');
+
+      cards.forEach((card, idx) => {
+        ScrollTrigger.create({
+          trigger: card,
+          start: 'top 75%',
+          end: 'bottom 20%',
+          onEnter: () => {
+            nodes[idx]?.classList.add('is-lit');
+          },
+          onLeaveBack: () => {
+            nodes[idx]?.classList.remove('is-lit');
+          }
+        });
+      });
+    });
+
+    return () => mm.revert();
+  }, []);
 
   return (
     <section
@@ -220,15 +254,15 @@ export const SteppedTimeline: React.FC = () => {
           </mask>
         </defs>
 
-        {/* Masked Group revealing the dashed gold vector line */}
+        {/* Masked Group revealing the dashed graphite/silver vector line */}
         <g mask="url(#timeline-mask)">
           <path
             ref={visiblePathRef}
             d={svgPathD}
             fill="none"
-            stroke="#9B7739"
+            stroke="#475569"
             strokeWidth="1.5"
-            strokeDasharray="18 6 2 6"
+            strokeDasharray="16 6 2 6"
           />
         </g>
       </svg>
@@ -238,7 +272,7 @@ export const SteppedTimeline: React.FC = () => {
         {/* Section Header: Architectural Cross-Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 pb-8 border-b border-neutral-300/70">
           <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-amber-900/20 bg-amber-900/5 text-[#9B7739] text-[10px] font-mono tracking-[0.25em] uppercase mb-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-300/80 bg-slate-100 text-slate-700 text-[10px] font-mono tracking-[0.25em] uppercase mb-4 shadow-2xs">
               <span>PRZEKRÓJ E—01 / CROSS-SECTION A—A</span>
             </div>
             <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-normal text-neutral-950 tracking-tight leading-tight">
@@ -249,7 +283,7 @@ export const SteppedTimeline: React.FC = () => {
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
               COORDINATES: HYD • NYC • RUH • DXB
             </span>
-            <span className="text-[11px] font-mono text-[#9B7739] font-medium block mt-1">
+            <span className="text-[11px] font-mono text-slate-600 font-medium block mt-1">
               SCROLL-DRIVEN ORTHOGONAL MESH
             </span>
           </div>
@@ -267,25 +301,25 @@ export const SteppedTimeline: React.FC = () => {
                 data-cut-anchor="true"
                 className="relative shrink-0 mt-3 flex items-center justify-center w-7 h-7"
               >
-                <div className="cut-node w-2.5 h-2.5 bg-neutral-300 border border-neutral-400 rotate-45 scale-75 opacity-40 shadow-xs" />
+                <div className="cut-node w-2.5 h-2.5 bg-slate-300 border border-slate-400 rotate-45 scale-90 opacity-90 lg:bg-slate-200 lg:scale-75 lg:opacity-40 shadow-xs" />
                 {/* Mobile continuous vertical line */}
                 {idx < milestones.length - 1 && (
-                  <div className="absolute top-7 left-1/2 -translate-x-1/2 w-px h-16 sm:h-20 bg-neutral-300 lg:hidden" />
+                  <div className="absolute top-7 left-1/2 -translate-x-1/2 w-px h-16 sm:h-20 bg-slate-300 lg:hidden" />
                 )}
               </div>
 
               {/* Milestone Card Content */}
-              <div className="milestone-card opacity-40 translate-y-2 transition-all duration-500 max-w-2xl p-6 sm:p-7 rounded-2xl bg-white/90 border border-neutral-200/90 shadow-sm hover:shadow-md hover:border-neutral-300 group">
+              <div className="milestone-card opacity-100 translate-y-0 lg:opacity-40 lg:translate-y-2 transition-all duration-500 w-full max-w-xl xl:max-w-2xl p-6 sm:p-7 rounded-2xl bg-white/95 border border-neutral-200/90 shadow-sm hover:shadow-md hover:border-slate-300 group">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-3 border-b border-neutral-100">
                   <div className="flex items-center gap-3">
-                    <span className="font-mono text-xs font-bold text-[#9B7739] bg-amber-50 px-2.5 py-0.5 rounded border border-amber-200/60">
+                    <span className="font-mono text-xs font-bold text-slate-800 bg-slate-100 px-2.5 py-0.5 rounded border border-slate-300/80">
                       STEP {milestone.stepNumber}
                     </span>
                     <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-400">
                       {milestone.code}
                     </span>
                   </div>
-                  <span className="text-[10px] font-mono tracking-wider text-neutral-500 uppercase">
+                  <span className="text-[10px] font-mono tracking-wider text-slate-500 uppercase">
                     {milestone.label}
                   </span>
                 </div>
@@ -300,14 +334,14 @@ export const SteppedTimeline: React.FC = () => {
 
                 <div className="flex flex-wrap items-center justify-between gap-3 pt-3 border-t border-neutral-100 text-xs">
                   <div className="flex items-center gap-1.5 text-neutral-700 font-medium">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#9B7739]" />
+                    <span className="w-1.5 h-1.5 rounded-full bg-slate-700" />
                     <span>Deliverable:</span>
                     <span className="text-neutral-900 font-semibold">{milestone.deliverable}</span>
                   </div>
 
                   <a
                     href={milestone.linkUrl}
-                    className="rd-underline inline-flex items-center gap-1 text-xs font-semibold text-[#9B7739] hover:text-amber-800 transition-colors"
+                    className="rd-underline inline-flex items-center gap-1 text-xs font-semibold text-slate-700 hover:text-slate-950 transition-colors"
                   >
                     <span>Inspect Capability</span>
                     <ArrowUpRight className="w-3.5 h-3.5" />

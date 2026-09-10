@@ -46,8 +46,8 @@ export const Footer = () => {
               <a href="#process" className="hover:text-neutral-950 transition-colors">
                 How We Work
               </a>
-              <a href="#capabilities" className="hover:text-neutral-950 transition-colors">
-                Core Capabilities
+              <a href="#services" className="hover:text-neutral-950 transition-colors">
+                Our Services
               </a>
               <a href="#ai-platform" className="hover:text-neutral-950 transition-colors">
                 AI Architecture

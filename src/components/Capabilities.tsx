@@ -7,23 +7,25 @@ export const Capabilities = () => {
   const activeService = servicesData[activeIdx];
 
   return (
-    <section id="capabilities" className="py-28 md:py-36 bg-white border-b border-neutral-200/70">
+    <section id="services" className="py-28 md:py-36 bg-white border-b border-neutral-200/70 relative">
+      {/* Anchor alias for backwards compatibility */}
+      <span id="capabilities" className="sr-only" />
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         
         {/* Section Eyebrow */}
         <div data-reveal="header" className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-8 border-b border-neutral-200/80">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-300 bg-white text-neutral-700 text-[11px] font-mono tracking-[0.2em] uppercase mb-4 shadow-2xs">
-              <span>( CORE CAPABILITIES )</span>
+              <span>( OUR SERVICES )</span>
             </div>
             <h2 className="font-serif-display text-4xl sm:text-5xl lg:text-6xl text-neutral-950 font-normal tracking-tight leading-[1.08]">
               One partner. <br className="hidden sm:inline" />
-              <span className="italic">Multiple capabilities</span>.
+              <span className="italic">Integrated services</span>.
             </h2>
           </div>
           <div className="mt-6 sm:mt-0 text-left sm:text-right">
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
-              CATALOGUE / 06 PILLARS
+              SERVICES / 06 PILLARS
             </span>
             <span className="text-xl sm:text-2xl font-serif-display font-bold text-neutral-900 block mt-1">
               0{activeIdx + 1} <span className="text-neutral-400 font-normal text-sm">/ 06</span>

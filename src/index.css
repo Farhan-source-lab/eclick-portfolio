@@ -75,9 +75,9 @@
 }
 
 .cut-node.is-lit {
-  background-color: #9B7739 !important;
-  border-color: #C5A265 !important;
-  box-shadow: 0 0 20px rgba(155, 119, 57, 0.65), 0 0 40px rgba(155, 119, 57, 0.25) !important;
+  background-color: #334155 !important;
+  border-color: #64748B !important;
+  box-shadow: 0 0 14px rgba(51, 65, 85, 0.35), 0 0 28px rgba(100, 116, 139, 0.2) !important;
   transform: rotate(45deg) scale(1.15) !important;
   opacity: 1 !important;
 }
