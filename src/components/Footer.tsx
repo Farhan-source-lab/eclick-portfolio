@@ -16,12 +16,11 @@ export const Footer = () => {
           {/* Col 1: Wordmark & Tagline (5 cols) */}
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center">
-              <span className="font-serif-display text-2xl font-bold tracking-tight text-neutral-950">
-                =CLICK
-              </span>
-              <span className="ml-2 text-[10px] tracking-[0.2em] font-semibold uppercase text-neutral-500 border-l border-neutral-300 pl-2">
-                Tech Solutions
-              </span>
+              <img
+                src="/logo.svg"
+                alt="Eclick Tech Solutions"
+                className="h-9 w-auto object-contain"
+              />
             </div>
             <p className="text-xs text-neutral-600 font-normal leading-relaxed max-w-sm">
               Innovating business through smart technology. AI services, software development, result-driven digital marketing, and strategic graphic design.

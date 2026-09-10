@@ -28,7 +28,7 @@ const milestones: Milestone[] = [
       'We begin by analyzing institutional datasets, workflow bottlenecks, and strategic growth friction points to formulate a rigorous technical blueprint.',
     deliverable: 'Technical Audit & Feasibility Scope',
     indentClass: 'lg:ml-0',
-    linkUrl: '#capabilities'
+    linkUrl: '#capabilities',
   },
   {
     id: 'step-1',
@@ -40,7 +40,7 @@ const milestones: Milestone[] = [
       'Engineering custom LLM fine-tuning, retrieval-augmented generation (RAG), and cloud-native backend APIs engineered for enterprise throughput.',
     deliverable: 'Agentic Workflows & Multi-DB Architecture',
     indentClass: 'lg:ml-[10%] xl:ml-[12%]',
-    linkUrl: '#ai-platform'
+    linkUrl: '#capabilities',
   },
   {
     id: 'step-2',
@@ -52,7 +52,7 @@ const milestones: Milestone[] = [
       'Bridging design intuition with corporate authority to construct unified design systems, brand guidelines, and high-conversion web interfaces.',
     deliverable: 'Design Tokens, UI Prototypes & Assets',
     indentClass: 'lg:ml-[20%] xl:ml-[24%]',
-    linkUrl: '#selected-work'
+    linkUrl: '#selected-work',
   },
   {
     id: 'step-3',
@@ -64,7 +64,7 @@ const milestones: Milestone[] = [
       'Deploying algorithmic SEO, multi-channel performance advertising, and reputation management to build continuous enterprise conversion funnels.',
     deliverable: 'Full-Funnel Conversion Infrastructure',
     indentClass: 'lg:ml-[30%] xl:ml-[36%]',
-    linkUrl: '#capabilities'
+    linkUrl: '#capabilities',
   },
   {
     id: 'step-4',
@@ -76,81 +76,97 @@ const milestones: Milestone[] = [
       'Executive KPI command centers, continuous pipeline monitoring, and proactive model retraining to ensure permanent competitive advantage.',
     deliverable: 'Executive Intelligence & 24/7 SLA Support',
     indentClass: 'lg:ml-[40%] xl:ml-[48%]',
-    linkUrl: '#contact'
-  }
+    linkUrl: '#contact',
+  },
 ];
 
 export const SteppedTimeline: React.FC = () => {
   const sectionRef = useRef<HTMLElement | null>(null);
+  const cardsContainerRef = useRef<HTMLDivElement | null>(null);
   const svgRef = useRef<SVGSVGElement | null>(null);
   const maskPathRef = useRef<SVGPathElement | null>(null);
   const visiblePathRef = useRef<SVGPathElement | null>(null);
+  const mobileLineRef = useRef<HTMLDivElement | null>(null);
   const [svgPathD, setSvgPathD] = useState<string>('');
 
+  const [mobileLineGeometry, setMobileLineGeometry] = useState<{ top: number; height: number }>({ top: 26, height: 0 });
+
+  // 1. PATH & GEOMETRY: Calculate desktop stepped path and mobile straight track
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    const container = cardsContainerRef.current;
+    if (!section || !container) return;
 
-    const updatePath = () => {
-      // Only compute orthogonal stepped path on desktop (lg: >= 1024px)
-      if (window.innerWidth < 1024) {
-        setSvgPathD('');
-        return;
-      }
-
+    const updateGeometry = () => {
       const anchors = section.querySelectorAll<HTMLElement>('[data-cut-anchor="true"]');
       if (anchors.length < 2) return;
 
-      const secRect = section.getBoundingClientRect();
-      const points: Array<{ x: number; y: number }> = [];
+      const isDesktop = window.innerWidth >= 1024;
 
-      anchors.forEach((el) => {
-        const r = el.getBoundingClientRect();
-        points.push({
-          x: r.left - secRect.left + r.width / 2,
-          y: r.top - secRect.top + r.height / 2
+      if (isDesktop) {
+        // Desktop: Orthogonal stepped path connecting nodes
+        const secRect = section.getBoundingClientRect();
+        const points: Array<{ x: number; y: number }> = [];
+
+        anchors.forEach((el) => {
+          const r = el.getBoundingClientRect();
+          points.push({
+            x: r.left - secRect.left + r.width / 2,
+            y: r.top - secRect.top + r.height / 2,
+          });
         });
-      });
 
-      // Generate 90-degree orthogonal stepped path
-      // from (prev.x, prev.y) -> vertical down to (prev.x, curr.y) -> horizontal to (curr.x, curr.y)
-      let d = `M ${points[0].x} ${points[0].y}`;
-      for (let i = 1; i < points.length; i++) {
-        const prev = points[i - 1];
-        const curr = points[i];
-        d += ` L ${prev.x} ${curr.y} L ${curr.x} ${curr.y}`;
+        let d = `M ${points[0].x} ${points[0].y}`;
+        for (let i = 1; i < points.length; i++) {
+          const prev = points[i - 1];
+          const curr = points[i];
+          d += ` L ${prev.x} ${curr.y} L ${curr.x} ${curr.y}`;
+        }
+
+        setSvgPathD(d);
+      } else {
+        // Mobile: Exact vertical straight line from first node center to last node center
+        setSvgPathD('');
+        const containerRect = container.getBoundingClientRect();
+        const firstAnchorRect = anchors[0].getBoundingClientRect();
+        const lastAnchorRect = anchors[anchors.length - 1].getBoundingClientRect();
+
+        const top = firstAnchorRect.top - containerRect.top + firstAnchorRect.height / 2;
+        const bottom = lastAnchorRect.top - containerRect.top + lastAnchorRect.height / 2;
+        const height = Math.max(0, bottom - top);
+
+        setMobileLineGeometry({ top, height });
       }
-
-      setSvgPathD(d);
     };
 
-    // Initial calculation with double RAF to ensure layout & fonts settle
     requestAnimationFrame(() => {
-      updatePath();
-      requestAnimationFrame(updatePath);
+      updateGeometry();
+      requestAnimationFrame(updateGeometry);
     });
 
     const ro = new ResizeObserver(() => {
-      updatePath();
+      updateGeometry();
       ScrollTrigger.refresh();
     });
     ro.observe(section);
+    ro.observe(container);
 
-    window.addEventListener('resize', updatePath);
-    window.addEventListener('load', updatePath);
+    window.addEventListener('resize', updateGeometry);
+    window.addEventListener('load', updateGeometry);
 
     return () => {
       ro.disconnect();
-      window.removeEventListener('resize', updatePath);
-      window.removeEventListener('load', updatePath);
+      window.removeEventListener('resize', updateGeometry);
+      window.removeEventListener('load', updateGeometry);
     };
   }, []);
 
-  // Set up GSAP ScrollTrigger for the mask reveal & node illumination
+  // 2. DESKTOP ANIMATION: Synchronize orthogonal stepped line scrub 1:1 with user scroll
   useEffect(() => {
     const section = sectionRef.current;
     const maskPath = maskPathRef.current;
-    if (!section || !maskPath || !svgPathD) return;
+    const container = cardsContainerRef.current;
+    if (!section || !maskPath || !svgPathD || !container) return;
 
     const totalLen = maskPath.getTotalLength();
     if (totalLen <= 0) return;
@@ -162,69 +178,81 @@ export const SteppedTimeline: React.FC = () => {
     const cards = section.querySelectorAll<HTMLElement>('.milestone-card');
 
     const ctx = gsap.context(() => {
-      // Scrub the mask offset as user scrolls through the timeline section
       gsap.to(maskPath, {
         strokeDashoffset: 0,
         ease: 'none',
         scrollTrigger: {
-          trigger: section,
-          start: 'top 70%',
-          end: 'bottom 85%',
-          scrub: 0.6,
+          trigger: container,
+          start: 'top 60%',
+          end: 'bottom 60%',
+          scrub: true,
           onUpdate: (self) => {
             const progress = self.progress;
-            // Illuminate nodes progressively
             nodes.forEach((node, idx) => {
-              const threshold = (idx + 0.1) / nodes.length;
-              if (progress >= threshold) {
+              const threshold = idx / (nodes.length - 1);
+              if (progress >= threshold - 0.05) {
                 node.classList.add('is-lit');
                 if (cards[idx]) {
-                  cards[idx].classList.remove('opacity-40', 'translate-y-2');
-                  cards[idx].classList.add('opacity-100', 'translate-y-0');
+                  cards[idx].classList.add('border-slate-300', 'shadow-md');
                 }
               } else {
                 node.classList.remove('is-lit');
                 if (cards[idx]) {
-                  cards[idx].classList.add('opacity-40', 'translate-y-2');
-                  cards[idx].classList.remove('opacity-100', 'translate-y-0');
+                  cards[idx].classList.remove('border-slate-300', 'shadow-md');
                 }
               }
             });
-          }
-        }
+          },
+        },
       });
     }, section);
 
     return () => ctx.revert();
   }, [svgPathD]);
 
-  // Mobile-only node illumination (screens < 1024px, zero impact on desktop)
+  // 3. MOBILE ANIMATION: 1 Single straight vertical line that draws down 1:1 with user scroll
   useEffect(() => {
     const section = sectionRef.current;
-    if (!section) return;
+    const mobileLine = mobileLineRef.current;
+    const container = cardsContainerRef.current;
+    if (!section || !mobileLine || !container) return;
 
     const mm = gsap.matchMedia();
     mm.add('(max-width: 1023px)', () => {
       const nodes = section.querySelectorAll<HTMLElement>('.cut-node');
       const cards = section.querySelectorAll<HTMLElement>('.milestone-card');
 
-      cards.forEach((card, idx) => {
-        ScrollTrigger.create({
-          trigger: card,
-          start: 'top 75%',
-          end: 'bottom 20%',
-          onEnter: () => {
-            nodes[idx]?.classList.add('is-lit');
+      gsap.to(mobileLine, {
+        scaleY: 1,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: container,
+          start: 'top 60%',
+          end: 'bottom 60%',
+          scrub: true,
+          onUpdate: (self) => {
+            const progress = self.progress;
+            nodes.forEach((node, idx) => {
+              const threshold = idx / (nodes.length - 1);
+              if (progress >= threshold - 0.05) {
+                node.classList.add('is-lit');
+                if (cards[idx]) {
+                  cards[idx].classList.add('border-slate-300', 'shadow-md');
+                }
+              } else {
+                node.classList.remove('is-lit');
+                if (cards[idx]) {
+                  cards[idx].classList.remove('border-slate-300', 'shadow-md');
+                }
+              }
+            });
           },
-          onLeaveBack: () => {
-            nodes[idx]?.classList.remove('is-lit');
-          }
-        });
+        },
       });
     });
 
     return () => mm.revert();
-  }, []);
+  }, [mobileLineGeometry]);
 
   return (
     <section
@@ -235,7 +263,7 @@ export const SteppedTimeline: React.FC = () => {
       {/* Subtle fine technical grid */}
       <div className="absolute inset-0 bg-tech-grid opacity-40 pointer-events-none" />
 
-      {/* SVG Orthogonal Vector Line Overlay with Masking Technique */}
+      {/* DESKTOP ONLY: SVG Orthogonal Vector Line Overlay with Masking Technique */}
       <svg
         ref={svgRef}
         className="absolute inset-0 w-full h-full pointer-events-none z-10 hidden lg:block"
@@ -268,7 +296,6 @@ export const SteppedTimeline: React.FC = () => {
       </svg>
 
       <div className="max-w-7xl mx-auto px-6 sm:px-8 relative z-20">
-        
         {/* Section Header: Architectural Cross-Section Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 pb-8 border-b border-neutral-300/70">
           <div>
@@ -290,11 +317,29 @@ export const SteppedTimeline: React.FC = () => {
         </div>
 
         {/* Stepped Milestones Container */}
-        <div className="relative flex flex-col gap-12 sm:gap-16">
-          {milestones.map((milestone, idx) => (
+        <div ref={cardsContainerRef} className="relative flex flex-col gap-12 sm:gap-16">
+          {/* MOBILE ONLY: 1 Single Straight Animated Vertical Line */}
+          <div
+            className="absolute left-[13px] w-[1.5px] pointer-events-none lg:hidden z-0"
+            style={{
+              top: `${mobileLineGeometry.top}px`,
+              height: `${mobileLineGeometry.height}px`,
+            }}
+          >
+            {/* Background Faint Guide */}
+            <div className="absolute inset-0 w-full bg-slate-200" />
+            {/* Animated Solid Line Fill */}
+            <div
+              ref={mobileLineRef}
+              className="absolute top-0 left-0 w-full bg-slate-700 origin-top h-full"
+              style={{ transform: 'scaleY(0)' }}
+            />
+          </div>
+
+          {milestones.map((milestone) => (
             <div
               key={milestone.id}
-              className={`flex items-start gap-5 sm:gap-8 ${milestone.indentClass} transition-all duration-500`}
+              className={`flex items-start gap-5 sm:gap-8 ${milestone.indentClass} transition-all duration-500 relative z-10`}
             >
               {/* Diamond Cut-Node (9–10px square rotated 45°) */}
               <div
@@ -302,14 +347,10 @@ export const SteppedTimeline: React.FC = () => {
                 className="relative shrink-0 mt-3 flex items-center justify-center w-7 h-7"
               >
                 <div className="cut-node w-2.5 h-2.5 bg-slate-300 border border-slate-400 rotate-45 scale-90 opacity-90 lg:bg-slate-200 lg:scale-75 lg:opacity-40 shadow-xs" />
-                {/* Mobile continuous vertical line */}
-                {idx < milestones.length - 1 && (
-                  <div className="absolute top-7 left-1/2 -translate-x-1/2 w-px h-16 sm:h-20 bg-slate-300 lg:hidden" />
-                )}
               </div>
 
               {/* Milestone Card Content */}
-              <div className="milestone-card opacity-100 translate-y-0 lg:opacity-40 lg:translate-y-2 transition-all duration-500 w-full max-w-xl xl:max-w-2xl p-6 sm:p-7 rounded-2xl bg-white/95 border border-neutral-200/90 shadow-sm hover:shadow-md hover:border-slate-300 group">
+              <div className="milestone-card opacity-100 translate-y-0 transition-all duration-500 w-full max-w-xl xl:max-w-2xl p-6 sm:p-7 rounded-2xl bg-white border border-neutral-200/90 shadow-sm hover:shadow-md hover:border-slate-300 group">
                 <div className="flex flex-wrap items-center justify-between gap-2 mb-3 pb-3 border-b border-neutral-100">
                   <div className="flex items-center gap-3">
                     <span className="font-mono text-xs font-bold text-slate-800 bg-slate-100 px-2.5 py-0.5 rounded border border-slate-300/80">
@@ -351,7 +392,6 @@ export const SteppedTimeline: React.FC = () => {
             </div>
           ))}
         </div>
-
       </div>
     </section>
   );

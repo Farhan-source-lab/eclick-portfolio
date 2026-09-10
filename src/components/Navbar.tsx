@@ -84,14 +84,14 @@ export const Navbar: React.FC<NavbarProps> = ({ currentView = 'home', onNavigate
                 e.preventDefault();
                 onNavigate?.('home', '');
               }}
-              className="group flex items-center"
+              className="group flex items-center py-1"
+              aria-label="Eclick Tech Solutions Home"
             >
-              <span className="font-serif-display text-xl sm:text-2xl font-bold tracking-tight text-neutral-950 group-hover:text-blue-900 transition-colors">
-                =CLICK
-              </span>
-              <span className="ml-2 hidden md:inline-block text-[9px] tracking-[0.18em] font-semibold uppercase text-neutral-400 border-l border-neutral-200 pl-2">
-                Tech Solutions
-              </span>
+              <img
+                src="/logo.svg"
+                alt="Eclick Tech Solutions"
+                className="h-7 sm:h-8 w-auto object-contain transition-opacity group-hover:opacity-80"
+              />
             </a>
           </motion.div>
 

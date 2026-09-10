@@ -1,0 +1,256 @@
+import React, { useEffect, useRef, useState } from 'react';
+import gsap from 'gsap';
+
+interface PreloaderProps {
+  onComplete?: () => void;
+}
+
+export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const svgRef = useRef<SVGSVGElement | null>(null);
+  const [isDone, setIsDone] = useState(false);
+
+  useEffect(() => {
+    const container = containerRef.current;
+    const svg = svgRef.current;
+    if (!container || !svg) return;
+
+    // Prevent body scrolling while preloader runs
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    // Collect all drawable vector shapes
+    const letterPaths = svg.querySelectorAll<SVGGeometryElement>('.logo-stroke');
+    const subtitlePaths = svg.querySelectorAll<SVGGeometryElement>('.subtitle-stroke');
+    const sparklePaths = svg.querySelectorAll<SVGGeometryElement>('.sparkle-stroke');
+    const allPaths = [...letterPaths, ...subtitlePaths, ...sparklePaths];
+
+    // Initialize stroke dash properties for pure handwriting outline effect
+    allPaths.forEach((el) => {
+      try {
+        const len = el.getTotalLength?.() || 200;
+        el.style.strokeDasharray = `${len}`;
+        el.style.strokeDashoffset = `${len}`;
+        el.style.stroke = '#FFFFFF';
+        el.style.fill = 'transparent';
+      } catch {
+        // Fallback for rect or non-path SVG elements
+      }
+    });
+
+    const tl = gsap.timeline({
+      onComplete: () => {
+        // Ghost fade out transition
+        gsap.to(container, {
+          opacity: 0,
+          scale: 1.05,
+          filter: 'blur(12px)',
+          duration: 0.85,
+          ease: 'power2.inOut',
+          onComplete: () => {
+            document.body.style.overflow = originalOverflow;
+            setIsDone(true);
+            onComplete?.();
+          },
+        });
+      },
+    });
+
+    // Make paths visible right when stroke animation begins
+    tl.set(allPaths, { opacity: 1 })
+      // 1. Sequentially draw ECLICK letters & click icon
+      .to(letterPaths, {
+        strokeDashoffset: 0,
+        duration: 1.3,
+        stagger: 0.1,
+        ease: 'power2.inOut',
+      })
+      // 2. Animate hand cursor & sparkle particle burst
+      .to(
+        sparklePaths,
+        {
+          strokeDashoffset: 0,
+          duration: 0.6,
+          stagger: 0.04,
+          ease: 'power1.out',
+        },
+        '-=0.5'
+      )
+      // 3. Sequentially write TECH SOLUTIONS alphabets
+      .to(
+        subtitlePaths,
+        {
+          strokeDashoffset: 0,
+          duration: 0.8,
+          stagger: 0.03,
+          ease: 'power1.inOut',
+        },
+        '-=0.4'
+      )
+      // 4. Solidify letter fills to clean full white color after outlines are drawn
+      .to(
+        allPaths,
+        {
+          fill: '#FFFFFF',
+          duration: 0.55,
+          ease: 'power1.inOut',
+        },
+        '-=0.1'
+      )
+      // 5. Brief cinematic pause so the user absorbs the pristine completed mark
+      .to({}, { duration: 0.4 });
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      tl.kill();
+    };
+  }, [onComplete]);
+
+  if (isDone) return null;
+
+  return (
+    <div
+      ref={containerRef}
+      id="eclick-intro-preloader"
+      className="fixed inset-0 z-[99999] flex flex-col items-center justify-center pointer-events-auto select-none"
+      style={{
+        backgroundColor: '#093746', // Exact navy teal background from brand asset
+        transition: 'background-color 0.3s ease',
+      }}
+    >
+      <style>{`
+        .logo-stroke, .subtitle-stroke, .sparkle-stroke {
+          fill: transparent;
+          stroke: #FFFFFF;
+          opacity: 0;
+        }
+      `}</style>
+
+      {/* Ambient Radial Teal Glow */}
+      <div
+        className="absolute w-[600px] h-[600px] rounded-full pointer-events-none blur-3xl opacity-40 animate-pulse"
+        style={{
+          background: 'radial-gradient(circle, rgba(20, 184, 166, 0.3) 0%, rgba(9, 55, 70, 0) 70%)',
+        }}
+      />
+
+      {/* Main Eclick Logo Container - Centered and Larger Height */}
+      <div className="relative z-10 max-w-lg sm:max-w-xl md:max-w-2xl lg:max-w-3xl w-full px-6 flex flex-col items-center justify-center">
+        <svg
+          ref={svgRef}
+          viewBox="0 0 394.67 162.71"
+          className="w-full h-auto drop-shadow-[0_6px_32px_rgba(0,0,0,0.45)] overflow-visible"
+        >
+          {/* Click Icon Bars */}
+          <rect
+            className="logo-stroke"
+            x="0"
+            y="56.79"
+            width="72.57"
+            height="2.1"
+            rx=".79"
+            ry=".79"
+            strokeWidth="1.8"
+          />
+          <rect
+            className="logo-stroke"
+            x="0"
+            y="116.44"
+            width="72.57"
+            height="2.1"
+            rx=".79"
+            ry=".79"
+            strokeWidth="1.8"
+          />
+          <rect
+            className="logo-stroke"
+            y="80.84"
+            width="72.57"
+            height="11.89"
+            rx="4.46"
+            ry="4.46"
+            strokeWidth="2.2"
+          />
+
+          {/* Letter: E */}
+          <path
+            className="logo-stroke"
+            strokeWidth="2.4"
+            d="M104.77,118.54h42.95c.94,0,1.71-.76,1.71-1.71v-8.08c0-.94-.76-1.71-1.71-1.71h-40.29c-4.84,0-8.76-3.92-8.76-8.76v-21.62c0-4.31,3.5-7.81,7.81-7.81h41.24c.94,0,1.71-.76,1.71-1.71v-8.65c0-.94-.76-1.71-1.71-1.71h-42.95c-10.67,0-19.32,8.65-19.32,19.32v23.11c0,10.67,8.65,19.32,19.32,19.32Z"
+          />
+
+          {/* Letter: C */}
+          <path
+            className="logo-stroke"
+            strokeWidth="2.4"
+            d="M218.8,118.72c.6,0,1.08-.48,1.08-1.08v-9.7c0-.6-.48-1.08-1.08-1.08h-38.19c-4.71,0-8.54-3.82-8.54-8.54v-40.46c0-.6-.48-1.08-1.08-1.08h-10.78c-.6,0-1.08.48-1.08,1.08v42.25c0,10.27,8.33,18.6,18.6,18.6h41.06Z"
+          />
+
+          {/* Letter: L */}
+          <rect
+            className="logo-stroke"
+            x="229.04"
+            y="56.79"
+            width="13.48"
+            height="61.75"
+            rx="1.25"
+            ry="1.25"
+            strokeWidth="2.2"
+          />
+
+          {/* Hand Click Cursor & Sparkle Magic */}
+          <g className="sparkle-stroke">
+            <path
+              strokeWidth="1.8"
+              d="M242.91,9.31c-.91.75-1.98,1.45-2.45,2.58-.83,1.99.3,4.28,2.3,4.9-.12.12-.24.24-.35.37-.73.89-1.02,2.18-.73,3.29.31,1.22,1.17,2.23,2.35,2.68.11.04.22.07.34.1-.1.1-.19.2-.28.31-.73.89-1.02,2.18-.73,3.29.31,1.22,1.17,2.23,2.35,2.68.1.04.2.06.3.09-1.48,1.22-2.95,2.44-4.43,3.66-.83.69-1.7,1.36-2.51,2.07-2.08,1.83-1.86,5.26.68,6.57,2.84,1.47,5.09-1.05,7.08-2.7,2.89-2.38,5.77-4.77,8.66-7.15,1.37-1.13,2.74-2.26,4.11-3.39-.37,1.36-.74,2.73-1.11,4.09-.49,1.85.1,3.82,1.86,4.77,2.02,1.1,4.59.2,5.53-1.89.28-.62.42-1.32.61-1.96.39-1.32.77-2.64,1.16-3.96.81-2.77,1.62-5.54,2.43-8.31,1.43-4.91,2.14-10.26-.53-14.94-1.9-3.32-5.25-6.13-9.17-6.44-3.85-.31-7.51,1.59-10.58,3.74-2.4,1.69-4.62,3.67-6.89,5.54Z"
+            />
+            <path strokeWidth="1.2" d="M230.43,40.87c.61.05,1.06.58,1.02,1.19-.05.61-.58,1.06-1.19,1.02-.61-.05-1.06-.58-1.02-1.19.05-.61.58-1.06,1.19-1.02Z"/>
+            <path strokeWidth="1.2" d="M237.63,49.3c-.05.61-.58,1.06-1.19,1.02-.61-.05-1.06-.58-1.02-1.19.05-.61.58-1.06,1.19-1.02.61.05,1.06.58,1.02,1.19Z"/>
+            <path strokeWidth="1.2" d="M233.52,36.66c.4.46.34,1.16-.12,1.56-.46.4-1.16.34-1.56-.12-.4-.46-.34-1.16.12-1.56.46-.4,1.16-.34,1.56.12Z"/>
+            <path strokeWidth="1.2" d="M242.27,46.9c.4.46.34,1.16-.12,1.56-.46.4-1.16.34-1.56-.12-.4-.46-.34-1.16.12-1.56.46-.4,1.16-.34,1.56.12Z"/>
+            <path strokeWidth="1.2" d="M232.65,47.72c-.46.4-1.16.34-1.56-.12-.4-.46-.34-1.16.12-1.56.47-.4,1.16-.34,1.56.12s.34,1.16-.12,1.56Z"/>
+          </g>
+
+          {/* Letter: C */}
+          <path
+            className="logo-stroke"
+            strokeWidth="2.4"
+            d="M315.47,118.54c.94,0,1.71-.76,1.71-1.71v-8.08c0-.94-.76-1.71-1.71-1.71h-40.29c-4.84,0-8.76-3.92-8.76-8.76v-21.62c0-4.31,3.5-7.81,7.81-7.81h41.24c.94,0,1.71-.76,1.71-1.71v-8.65c0-.94-.76-1.71-1.71-1.71h-42.95c-10.67,0-19.32,8.65-19.32,19.32v23.11c0,10.67,8.65,19.32,19.32,19.32h42.95Z"
+          />
+
+          {/* Letter: K */}
+          <path
+            className="logo-stroke"
+            strokeWidth="2.2"
+            d="M394.43,59.59h-24.11c-.16,0-.32.06-.44.16l-23.88,20.01,13.38,9.84c1.28.94,3.04.82,4.18-.28l30.86-29.73Z"
+          />
+          <path
+            className="logo-stroke"
+            strokeWidth="2.2"
+            d="M344.98,58.95c0-1.19-.97-2.16-2.16-2.16h-13.43c-.9,0-1.71.73-1.71,1.62v7.87l17.3,12.72v-20.06Z"
+          />
+          <path
+            className="logo-stroke"
+            strokeWidth="2.2"
+            d="M394.43,117.55l-66.76-49.08v50.07l17.33-21.07,48.97,21.04c.59.17.96-.61.46-.96Z"
+          />
+
+          {/* Subtitle: TECH SOLUTIONS (Individual alphabet strokes) */}
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M27.56,134.96H1.52c-.4,0-.73.33-.73.73v3.52c0,.4.33.73.73.73h10v21.75c0,.4.33.73.73.73h4.72c.4,0,.73-.33.73-.73v-21.75h9.87c.4,0,.73-.33.73-.73v-3.52c0-.4-.33-.73-.73-.73Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M56.06,134.77h-16.79c-4.77,0-8.64,3.87-8.64,8.64v10.65c0,4.77,3.87,8.64,8.64,8.64h16.79c.4,0,.72-.32.72-.72v-4.02c0-.4-.32-.72-.72-.72h-15.29c-2.59,0-4.7-2.1-4.7-4.7v-1.85h19.98c.4,0,.72-.32.72-.72v-3c0-.4-.32-.72-.72-.72h-19.98v-1.85c0-2.59,2.1-4.7,4.7-4.7h15.29c.4,0,.72-.32.72-.72v-3.53c0-.4-.32-.72-.72-.72Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M85.64,134.77h-15.47c-5.64,0-10.21,4.57-10.21,10.21v7.53c0,5.64,4.57,10.21,10.21,10.21h15.47c.72,0,1.3-.58,1.3-1.3v-3.14c0-.72-.58-1.3-1.3-1.3h-15.47c-2.46,0-4.46-2-4.46-4.46v-7.53c0-2.46,2-4.46,4.46-4.46h15.47c.72,0,1.3-.58,1.3-1.3v-3.14c0-.72-.58-1.3-1.3-1.3Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M117.53,134.77h-3.72c-.52,0-.95.43-.95.95v10.21h-16.37v-10.21c0-.52-.43-.95-.95-.95h-3.72c-.52,0-.95.43-.95.95v26.04c0,.52.43.95.95.95h3.72c.52,0,.95-.43.95-.95v-10.96h16.37v10.96c0,.52.43.95.95.95h3.72c.52,0,.95-.43.95-.95v-26.04c0-.52-.43-.95-.95-.95Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M156.01,146.12h-12.22c-1.46,0-2.64-1.18-2.64-2.64v-.64c0-1.46,1.18-2.64,2.64-2.64h16.53c.49,0,.89-.4.89-.89v-3.65c0-.49-.4-.89-.89-.89h-18.77c-3.18,0-5.76,2.58-5.76,5.76v4.62c0,3.18,2.58,5.76,5.76,5.76h12.74c1.46,0,2.64,1.18,2.64,2.64v.64c0,1.46-1.18,2.64-2.64,2.64h-17.61c-.49,0-.89.4-.89.89v4.1c0,.49.4.89.89.89h19.34c3.51,0,6.35-2.84,6.35-6.35v-3.89c0-3.51-2.84-6.35-6.35-6.35Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M186.07,134.77h-10.65c-5.49,0-9.95,4.45-9.95,9.95v8.05c0,5.49,4.45,9.95,9.95,9.95h10.65c5.49,0,9.95-4.45,9.95-9.95v-8.05c0-5.49-4.45-9.95-9.95-9.95ZM190.27,152.76c0,2.32-1.88,4.2-4.2,4.2h-10.65c-2.32,0-4.2-1.88-4.2-4.2v-8.05c0-2.32,1.88-4.2,4.2-4.2h10.65c2.32,0,4.2,1.88,4.2,4.2v8.05Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M223.97,156.96h-15.09c-1.72,0-3.12-1.4-3.12-3.12v-17.99c0-.6-.49-1.09-1.09-1.09h-3.73c-.6,0-1.09.49-1.09,1.09v18.05c0,4.86,3.94,8.8,8.8,8.8h15.31c.6,0,1.09-.49,1.09-1.09v-3.57c0-.6-.49-1.09-1.09-1.09Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M255.07,134.77h-3.57c-.6,0-1.09.49-1.09,1.09v17.82c0,1.82-1.47,3.29-3.29,3.29h-10.41c-1.82,0-3.29-1.47-3.29-3.29v-17.82c0-.6-.49-1.09-1.09-1.09h-3.57c-.6,0-1.09.49-1.09,1.09v17.82c0,4.99,4.05,9.03,9.03,9.03h10.41c4.99,0,9.03-4.05,9.03-9.03v-17.82c0-.6-.49-1.09-1.09-1.09Z"/>
+          <rect className="subtitle-stroke" x="289.78" y="135.17" width="5.81" height="27.53" rx=".71" ry=".71" strokeWidth="1.4"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M285.32,134.77h-25.17c-.65,0-1.18.53-1.18,1.18v3.38c0,.65.53,1.18,1.18,1.18h9.59v21.01c0,.65.53,1.18,1.18,1.18h3.44c.65,0,1.18-.53,1.18-1.18v-21.01h9.78c.65,0,1.18-.53,1.18-1.18v-3.38c0-.65-.53-1.18-1.18-1.18Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M320.77,134.77h-11.21c-5.23,0-9.48,4.24-9.48,9.48v8.98c0,5.23,4.24,9.48,9.48,9.48h11.21c5.23,0,9.48-4.24,9.48-9.48v-8.98c0-5.23-4.24-9.48-9.48-9.48ZM324.5,153.23c0,2.06-1.67,3.73-3.73,3.73h-11.21c-2.06,0-3.73-1.67-3.73-3.73v-8.98c0-2.06,1.67-3.73,3.73-3.73h11.21c2.06,0,3.73,1.67,3.73,3.73v8.98Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M362.32,135.17h-3.56c-.43,0-.79.35-.79.79v18.51c0,.31-.39.45-.59.21l-15.79-19.5h-5.16c-.81,0-1.46.65-1.46,1.46v24.99c0,.6.48,1.08,1.08,1.08h2.97c.6,0,1.08-.48,1.08-1.08v-19.92l17.67,21h3.67c.91,0,1.65-.74,1.65-1.65v-25.09c0-.43-.35-.79-.79-.79Z"/>
+          <path className="subtitle-stroke" strokeWidth="1.4" d="M393.11,134.77h-19.37c-3.39,0-6.15,2.75-6.15,6.15v3.8c0,3.39,2.75,6.15,6.15,6.15h11.75c1.69,0,3.06,1.37,3.06,3.06v.21c0,1.69-1.37,3.06-3.06,3.06h-17.09c-.45,0-.81.36-.81.81v3.9c0,.45.36.81.81.81h19.81c3.43,0,6.22-2.78,6.22-6.22v-3.9c0-3.43-2.78-6.22-6.22-6.22h-12.5c-1.69,0-3.06-1.37-3.06-3.06v-.21c0-1.69,1.37-3.06,3.06-3.06h17.4c.73,0,1.32-.59,1.32-1.32v-2.63c0-.73-.59-1.32-1.32-1.32Z"/>
+        </svg>
+      </div>
+    </div>
+  );
+};

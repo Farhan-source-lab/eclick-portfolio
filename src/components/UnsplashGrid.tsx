@@ -115,10 +115,10 @@ function ImageItem({ item, setSelected, isLoaded, onLoad }: ImageItemProps) {
         />
       )}
       <div className="flex flex-col absolute bottom-0 left-0 right-0 p-5 group-hover:opacity-100 opacity-90 sm:opacity-0 group-hover:translate-y-0 translate-y-1 transition-all duration-300 text-white z-20 pointer-events-none">
-        <h3 className="font-serif-display text-lg font-semibold tracking-tight text-white drop-shadow-md">
+        <h3 className="font-sans text-lg sm:text-xl font-bold tracking-tight text-white drop-shadow-md">
           {item.title}
         </h3>
-        <span className="text-xs font-mono text-neutral-300 drop-shadow-md">
+        <span className="text-xs sm:text-sm font-medium text-neutral-200 drop-shadow-md">
           {item.role}
         </span>
       </div>
@@ -320,10 +320,10 @@ function Modal({ selected, setSelected }: ModalProps) {
             className="p-6 sm:p-8 bg-[#000000] text-white border-t border-neutral-800/80"
           >
             <div className="flex flex-wrap items-baseline gap-3 mb-2">
-              <motion.h3 variants={itemVariants} className="font-serif-display text-2xl sm:text-3xl font-bold text-white tracking-tight">
+              <motion.h3 variants={itemVariants} className="font-sans text-2xl sm:text-3xl font-bold text-white tracking-tight">
                 {selected.title}
               </motion.h3>
-              <span className="text-sm font-mono text-blue-400 font-medium">
+              <span className="text-sm font-semibold text-blue-400 tracking-wide">
                 {selected.role}
               </span>
             </div>
@@ -331,7 +331,7 @@ function Modal({ selected, setSelected }: ModalProps) {
             <motion.div variants={itemVariants} className="flex gap-2 flex-wrap mb-4">
               {selected.tags?.map((tag: string) => (
                 <span
-                  className="bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs px-3 py-1 rounded-full font-mono"
+                  className="bg-neutral-900 border border-neutral-800 text-neutral-300 text-xs px-3 py-1 rounded-full font-medium"
                   key={tag}
                 >
                   {tag}
@@ -339,14 +339,18 @@ function Modal({ selected, setSelected }: ModalProps) {
               ))}
             </motion.div>
 
-            <motion.p variants={itemVariants} className="text-sm sm:text-base text-neutral-300 leading-relaxed mb-6">
+            <motion.p variants={itemVariants} className="font-sans text-sm sm:text-base text-neutral-300 leading-relaxed mb-6 font-normal">
               {selected.description}
             </motion.p>
 
             <motion.div variants={itemVariants} className="flex items-center justify-between pt-4 border-t border-neutral-800">
-              <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest">
-                ECLICK TECH SOLUTIONS
-              </span>
+              <div className="flex items-center">
+                <img
+                  src="/logo.svg"
+                  alt="Eclick Tech Solutions"
+                  className="h-6 w-auto object-contain brightness-0 invert opacity-85"
+                />
+              </div>
               <a
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-neutral-900 hover:bg-neutral-800 border border-neutral-700 text-white text-xs font-medium tracking-wider uppercase transition-colors"
                 href={selected.url}
