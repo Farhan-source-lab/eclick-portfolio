@@ -35,29 +35,39 @@ export function App() {
     isPageReloadRef.current = navEntry?.type === 'reload' || (performance as unknown as { navigation?: { type: number } })?.navigation?.type === 1;
   }, []);
 
+  // Initialize baseline HTML5 history state so browser history stack is never empty
   useEffect(() => {
-    // Hash-based routing check: ONLY #industries is maintained in the URL
-    const handleHashChange = () => {
+    if (!window.history.state) {
+      window.history.replaceState(
+        { view: window.location.hash === '#industries' ? 'industries' : 'home' },
+        '',
+        window.location.href
+      );
+    }
+  }, []);
+
+  // Global popstate handler: Intercepts mobile browser back button to navigate internal views cleanly
+  useEffect(() => {
+    const handlePopState = (e: PopStateEvent) => {
       const hash = window.location.hash;
-      if (hash === '#industries') {
+      const stateView = e.state?.view;
+      if (hash === '#industries' || stateView === 'industries') {
         setCurrentView('industries');
         window.scrollTo(0, 0);
         lenisRef.current?.scrollTo(0, { immediate: true, force: true });
       } else {
         setCurrentView('home');
-        // Instantly strip any #section from the URL so it stays clean
-        if (hash && hash !== '#') {
-          history.replaceState(null, '', window.location.pathname);
-        }
       }
+      setTimeout(() => {
+        ScrollTrigger.refresh();
+      }, 100);
     };
 
-    handleHashChange();
-    window.addEventListener('hashchange', handleHashChange);
-    return () => window.removeEventListener('hashchange', handleHashChange);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  // Intercept any internal anchor clicks so no #section is pushed to URL
+  // Intercept any internal anchor clicks so navigation pushes history entries correctly
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
       const target = e.target as HTMLElement | null;
@@ -66,9 +76,6 @@ export function App() {
         const href = anchor.getAttribute('href');
         if (href && href.startsWith('#') && href !== '#industries') {
           e.preventDefault();
-          if (window.location.hash) {
-            history.replaceState(null, '', window.location.pathname);
-          }
           if (href !== '#') {
             const el = document.querySelector(href);
             if (el && lenisRef.current) {
@@ -136,10 +143,11 @@ export function App() {
   }, []);
 
   const handleNavigate = (view: 'home' | 'industries', targetHash?: string) => {
-    setCurrentView(view);
-
     if (view === 'industries') {
-      window.location.hash = '#industries';
+      if (currentView !== 'industries') {
+        window.history.pushState({ view: 'industries' }, '', '#industries');
+      }
+      setCurrentView('industries');
       window.scrollTo(0, 0);
       lenisRef.current?.scrollTo(0, { immediate: true, force: true });
       setTimeout(() => {
@@ -148,10 +156,10 @@ export function App() {
         ScrollTrigger.refresh();
       }, 50);
     } else {
-      // Remove any hash so URL stays pure without #section
-      if (window.location.hash) {
-        history.replaceState(null, '', window.location.pathname);
+      if (currentView !== 'home') {
+        window.history.pushState({ view: 'home' }, '', window.location.pathname);
       }
+      setCurrentView('home');
 
       const destination = targetHash && targetHash !== '#' ? targetHash : '';
 

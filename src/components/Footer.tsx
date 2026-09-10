@@ -66,22 +66,36 @@ export const Footer = () => {
               VERIFIED CONTACTS
             </span>
             <div className="space-y-2 text-xs text-neutral-600">
-              <div className="flex items-center gap-2">
+              <a
+                href={`tel:${companyData.contacts.indiaPhone.replace(/\s+/g, '')}`}
+                className="flex items-center gap-2 hover:text-blue-700 transition-colors"
+              >
                 <Phone className="w-3.5 h-3.5 text-blue-700 shrink-0" />
                 <span>IND: {companyData.contacts.indiaPhone}</span>
-              </div>
-              <div className="flex items-center gap-2">
+              </a>
+              <a
+                href={`tel:${companyData.contacts.ksaPhone.replace(/\s+/g, '')}`}
+                className="flex items-center gap-2 hover:text-blue-700 transition-colors"
+              >
                 <Phone className="w-3.5 h-3.5 text-blue-700 shrink-0" />
                 <span>KSA: {companyData.contacts.ksaPhone}</span>
-              </div>
-              <div className="flex items-center gap-2">
+              </a>
+              <a
+                href={`mailto:${companyData.contacts.email}`}
+                className="flex items-center gap-2 hover:text-blue-700 transition-colors"
+              >
                 <Mail className="w-3.5 h-3.5 text-blue-700 shrink-0" />
                 <span>{companyData.contacts.email}</span>
-              </div>
-              <div className="flex items-center gap-2">
+              </a>
+              <a
+                href={`https://${companyData.contacts.website}`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 hover:text-blue-700 transition-colors"
+              >
                 <Globe className="w-3.5 h-3.5 text-blue-700 shrink-0" />
                 <span>{companyData.contacts.website}</span>
-              </div>
+              </a>
             </div>
           </div>
 

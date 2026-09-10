@@ -189,7 +189,12 @@ function Modal({ selected, setSelected }: ModalProps) {
 
   const selectedIndex = selected ? VISIBLE_ITEMS.findIndex((i) => i.id === selected.id) : -1;
 
-  const handleClose = useCallback(() => setSelected(null), [setSelected]);
+  const handleClose = useCallback(() => {
+    setSelected(null);
+    if (window.history.state?.modalOpen) {
+      window.history.back();
+    }
+  }, [setSelected]);
 
   // Infinite loop navigation
   const navigate = useCallback(
@@ -223,6 +228,13 @@ function Modal({ selected, setSelected }: ModalProps) {
     if (!selected) return;
     document.body.classList.add('overflow-hidden');
 
+    const handlePopState = () => {
+      setSelected(null);
+    };
+
+    window.history.pushState({ modalOpen: true, type: 'team' }, '', window.location.href);
+    window.addEventListener('popstate', handlePopState);
+
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') handleClose();
       else if (event.key === 'ArrowRight') goNext();
@@ -234,6 +246,7 @@ function Modal({ selected, setSelected }: ModalProps) {
     return () => {
       document.body.classList.remove('overflow-hidden');
       document.removeEventListener('keydown', handleKeyDown);
+      window.removeEventListener('popstate', handlePopState);
     };
   }, [selected, handleClose, goNext, goPrev]);
 

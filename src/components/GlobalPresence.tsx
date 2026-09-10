@@ -53,10 +53,13 @@ export const GlobalPresence = () => {
                     <span>{loc.timezone}</span>
                   </div>
                   {loc.phone && (
-                    <div className="flex items-center gap-2 text-neutral-800 font-medium">
+                    <a
+                      href={`tel:${loc.phone.replace(/\s+/g, '')}`}
+                      className="flex items-center gap-2 text-neutral-800 hover:text-blue-700 transition-colors font-medium"
+                    >
                       <Phone className="w-3.5 h-3.5 text-blue-600 shrink-0" />
                       <span>{loc.phone}</span>
-                    </div>
+                    </a>
                   )}
                 </div>
               </div>

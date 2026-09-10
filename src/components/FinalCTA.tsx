@@ -26,11 +26,11 @@ export const FinalCTA = () => {
             We welcome inquiries, collaborations, and project discussions. Partner with Eclick to transform your technical, digital, and commercial landscape.
           </p>
 
-          {/* Direct Email Action Button */}
+          {/* Direct Email & Regional Call Action Buttons */}
           <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href={`mailto:${companyData.contacts.email}?subject=Project%20Inquiry%20-%20Eclick%20Tech%20Solutions`}
-              className="inline-flex items-center gap-3 px-9 py-4 rounded-full bg-white hover:bg-neutral-100 active:scale-[0.98] text-neutral-950 font-semibold text-xs tracking-wider uppercase shadow-xl transition-all duration-200 group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-white hover:bg-neutral-100 active:scale-[0.98] text-neutral-950 font-semibold text-xs tracking-wider uppercase shadow-xl transition-all duration-200 group"
             >
               <span>Start a Conversation</span>
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -38,49 +38,66 @@ export const FinalCTA = () => {
 
             <a
               href={`tel:${companyData.contacts.indiaPhone.replace(/\s+/g, '')}`}
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-full border border-neutral-700 hover:border-neutral-500 bg-neutral-900/60 text-neutral-300 font-medium text-xs tracking-wider uppercase transition-colors"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-neutral-700 hover:border-neutral-500 bg-neutral-900/60 text-neutral-300 font-medium text-xs tracking-wider uppercase transition-colors"
             >
               <Phone className="w-3.5 h-3.5 text-blue-400" />
-              <span>Call Direct</span>
+              <span>Call India (+91)</span>
+            </a>
+
+            <a
+              href={`tel:${companyData.contacts.ksaPhone.replace(/\s+/g, '')}`}
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-4 rounded-full border border-neutral-700 hover:border-neutral-500 bg-neutral-900/60 text-neutral-300 font-medium text-xs tracking-wider uppercase transition-colors"
+            >
+              <Phone className="w-3.5 h-3.5 text-blue-400" />
+              <span>Call KSA (+966)</span>
             </a>
           </div>
 
-          {/* Verified Contact Numbers Strip */}
+          {/* Verified Contact Cards */}
           <div className="pt-12 mt-12 border-t border-neutral-800 grid grid-cols-1 sm:grid-cols-3 gap-6 text-left">
-            <div className="p-5 rounded-2xl bg-neutral-900/60 border border-neutral-800">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block mb-1">
+            <div className="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block">
                 INDIA HQ
               </span>
               <a
                 href={`tel:${companyData.contacts.indiaPhone.replace(/\s+/g, '')}`}
-                className="text-sm font-mono font-medium text-neutral-200 hover:text-white transition-colors block"
+                className="text-base font-mono font-medium text-neutral-100 hover:text-blue-400 transition-colors block"
               >
                 {companyData.contacts.indiaPhone}
               </a>
+              <span className="text-[11px] font-mono text-neutral-500 block">
+                Technology &amp; Development Center
+              </span>
             </div>
 
-            <div className="p-5 rounded-2xl bg-neutral-900/60 border border-neutral-800">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block mb-1">
+            <div className="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block">
                 KSA REGIONAL HUB
               </span>
               <a
                 href={`tel:${companyData.contacts.ksaPhone.replace(/\s+/g, '')}`}
-                className="text-sm font-mono font-medium text-neutral-200 hover:text-white transition-colors block"
+                className="text-base font-mono font-medium text-neutral-100 hover:text-blue-400 transition-colors block"
               >
                 {companyData.contacts.ksaPhone}
               </a>
+              <span className="text-[11px] font-mono text-neutral-500 block">
+                Middle East Operations Hub
+              </span>
             </div>
 
-            <div className="p-5 rounded-2xl bg-neutral-900/60 border border-neutral-800">
-              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block mb-1">
+            <div className="p-6 rounded-2xl bg-neutral-900/60 border border-neutral-800 space-y-2">
+              <span className="text-[10px] font-mono uppercase tracking-widest text-neutral-500 block">
                 PRIMARY EMAIL
               </span>
               <a
                 href={`mailto:${companyData.contacts.email}`}
-                className="text-sm font-mono font-medium text-blue-400 hover:text-blue-300 transition-colors block truncate"
+                className="text-base font-mono font-medium text-blue-400 hover:text-blue-300 transition-colors block truncate"
               >
                 {companyData.contacts.email}
               </a>
+              <span className="text-[11px] font-mono text-neutral-500 block">
+                Direct Corporate Inquiries
+              </span>
             </div>
           </div>
 

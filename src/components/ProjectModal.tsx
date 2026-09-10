@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { X, CheckCircle2, ArrowRight } from 'lucide-react';
 import type { ProjectItem } from '../data/projects';
 
@@ -7,6 +8,30 @@ interface ProjectModalProps {
 }
 
 export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
+  useEffect(() => {
+    if (!project) return;
+    document.body.classList.add('overflow-hidden');
+
+    const handlePopState = () => {
+      onClose();
+    };
+
+    window.history.pushState({ modalOpen: true, type: 'project' }, '', window.location.href);
+    window.addEventListener('popstate', handlePopState);
+
+    return () => {
+      document.body.classList.remove('overflow-hidden');
+      window.removeEventListener('popstate', handlePopState);
+    };
+  }, [project, onClose]);
+
+  const handleClose = () => {
+    onClose();
+    if (window.history.state?.modalOpen) {
+      window.history.back();
+    }
+  };
+
   if (!project) return null;
 
   return (
@@ -16,7 +41,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         {/* Close Button */}
         <button
           type="button"
-          onClick={onClose}
+          onClick={handleClose}
           className="absolute top-6 right-6 p-2.5 rounded-full border border-neutral-300 bg-white hover:bg-neutral-100 text-neutral-700 transition-colors"
           aria-label="Close modal"
         >
@@ -83,7 +108,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
         <div className="pt-6 border-t border-neutral-200 flex items-center justify-between">
           <a
             href="#contact"
-            onClick={onClose}
+            onClick={handleClose}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#0F172A] hover:bg-blue-600 text-white text-xs font-medium tracking-wider uppercase shadow-md transition-colors"
           >
             <span>Request Similar Architecture</span>
@@ -91,7 +116,7 @@ export const ProjectModal = ({ project, onClose }: ProjectModalProps) => {
           </a>
           <button
             type="button"
-            onClick={onClose}
+            onClick={handleClose}
             className="text-xs font-mono text-neutral-500 hover:text-neutral-900"
           >
             Close
