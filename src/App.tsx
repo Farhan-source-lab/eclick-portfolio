@@ -4,7 +4,6 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 import { useScrollReveal } from './hooks/useScrollReveal';
-import { CustomCursor } from './components/CustomCursor';
 import { ScrollProgress } from './components/ScrollProgress';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -95,10 +94,11 @@ export function App() {
 
     // Initialize Lenis for smooth inertia scrolling
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       smoothWheel: true,
-      touchMultiplier: 1.5,
+      syncTouch: false,
+      touchMultiplier: 1.0,
     });
 
     lenisRef.current = lenis;
@@ -126,7 +126,7 @@ export function App() {
     };
 
     gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(1000, 16);
 
     return () => {
       lenis.destroy();
@@ -183,8 +183,7 @@ export function App() {
       {/* Cinematic Logo SVG Intro & Ghost Transition Preloader */}
       <Preloader onComplete={() => ScrollTrigger.refresh()} />
 
-      {/* Subtle UI Enhancements */}
-      <CustomCursor />
+      {/* Subtle UI Scroll Progress Indicator */}
       <ScrollProgress />
 
       {/* Global Navigation */}

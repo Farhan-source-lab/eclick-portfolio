@@ -224,8 +224,12 @@ export default function Galaxy({
 
     let program;
 
+    let animateId;
+    let isIntersecting = true;
+
     function resize() {
-      const scale = 1;
+      const isMobile = window.innerWidth < 768 || window.matchMedia('(pointer: coarse)').matches;
+      const scale = isMobile ? 0.6 : 1.0;
       renderer.setSize(ctn.offsetWidth * scale, ctn.offsetHeight * scale);
       if (program) {
         program.uniforms.uResolution.value = new Color(
@@ -270,9 +274,12 @@ export default function Galaxy({
     });
 
     const mesh = new Mesh(gl, { geometry, program });
-    let animateId;
 
     function update(t) {
+      if (!isIntersecting) {
+        animateId = null;
+        return;
+      }
       animateId = requestAnimationFrame(update);
       if (!disableAnimation) {
         program.uniforms.uTime.value = t * 0.001;
@@ -291,6 +298,23 @@ export default function Galaxy({
 
       renderer.render({ scene: mesh });
     }
+
+    // Automatically pause WebGL animation loop when Hero section is out of viewport
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        isIntersecting = entry.isIntersecting;
+        if (isIntersecting && !animateId) {
+          animateId = requestAnimationFrame(update);
+        } else if (!isIntersecting && animateId) {
+          cancelAnimationFrame(animateId);
+          animateId = null;
+        }
+      },
+      { threshold: 0.01 }
+    );
+
+    observer.observe(ctn);
     animateId = requestAnimationFrame(update);
     ctn.appendChild(gl.canvas);
 
@@ -322,7 +346,8 @@ export default function Galaxy({
     }
 
     return () => {
-      cancelAnimationFrame(animateId);
+      observer.disconnect();
+      if (animateId) cancelAnimationFrame(animateId);
       window.removeEventListener('resize', resize);
       if (mouseInteraction) {
         window.removeEventListener('mousemove', handleMouseMove);

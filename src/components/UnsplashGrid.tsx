@@ -96,7 +96,7 @@ function ImageItem({ item, setSelected, isLoaded, onLoad }: ImageItemProps) {
       onKeyDown={handleKeyDown}
     >
       {!isLoaded && !imgError && (
-        <div className="w-full h-full bg-neutral-800 animate-pulse rounded-2xl" />
+        <div className="absolute inset-0 bg-neutral-800 animate-pulse rounded-2xl z-0" />
       )}
       {imgError ? (
         <div className="w-full h-full bg-neutral-900 flex items-center justify-center text-neutral-500 text-sm rounded-2xl">
@@ -109,7 +109,11 @@ function ImageItem({ item, setSelected, isLoaded, onLoad }: ImageItemProps) {
           transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
           src={item.url}
           alt={item.title}
-          className={`w-full h-full object-cover object-center rounded-2xl cursor-pointer ${isLoaded ? 'block' : 'hidden'}`}
+          loading="lazy"
+          decoding="async"
+          className={`w-full h-full object-cover object-center rounded-2xl cursor-pointer relative z-1 transition-opacity duration-300 ${
+            isLoaded ? 'opacity-100' : 'opacity-0'
+          }`}
           onLoad={() => onLoad(item.id)}
           onError={() => setImgError(true)}
         />

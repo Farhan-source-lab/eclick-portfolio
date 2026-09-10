@@ -11,13 +11,13 @@ const getLogoSizing = (id: string) => {
     case 'sas-dental':
       return 'h-14 sm:h-16 max-w-[140px]';
     case 'gdh-academy':
-      return 'h-12 sm:h-14 max-w-[140px]';
+      return 'h-18 sm:h-22 max-w-[200px] scale-125';
     case 'dynamic-production':
-      return 'h-11 sm:h-13 max-w-[165px]';
+      return 'h-16 sm:h-20 max-w-[210px] scale-125';
     case 'wallcraft-panels':
       return 'h-11 sm:h-13 max-w-[160px]';
     case 'aim-united-global':
-      return 'h-12 sm:h-15 max-w-[145px]';
+      return 'h-20 sm:h-24 max-w-[210px] scale-135';
     case 'mace-ai-academy':
       return 'h-11 sm:h-13 max-w-[155px]';
     case 'redesign-dental':
