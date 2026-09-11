@@ -1,5 +1,7 @@
 export interface LocationInfo {
   country: string;
+  city?: string;
+  address?: string;
   code: string;
   role: string;
   phone?: string;
@@ -27,6 +29,9 @@ export interface CompanyData {
   }>;
   contacts: {
     indiaPhone: string;
+    indiaAltPhone: string;
+    ksaPhone1: string;
+    ksaPhone2: string;
     ksaPhone: string;
     email: string;
     website: string;
@@ -80,37 +85,58 @@ export const companyData: CompanyData = {
     }
   ],
   contacts: {
-    indiaPhone: '+91 89192 48052',
-    ksaPhone: '+966 50 770 1476',
+    indiaPhone: '+91 90324 66511',
+    indiaAltPhone: '+91 89192 48052',
+    ksaPhone1: '+966 56 586 2042',
+    ksaPhone2: '+966 50 770 1476',
+    ksaPhone: '+966 56 586 2042',
     email: 'info@eclicktechsolutions.com',
     website: 'www.eclicktechsolutions.com'
   },
   locations: [
     {
       country: 'India',
+      city: 'Hyderabad',
+      address: 'Hyderabad, Telangana, India',
       code: 'IND',
       role: 'Technology & Development Center',
-      phone: '+91 89192 48052',
+      phone: '+91 90324 66511',
       coordinates: { x: 70, y: 52 },
       timezone: 'IST (UTC+5:30)'
     },
     {
+      country: 'KSA (Al-Khobar)',
+      city: 'Al-Khobar',
+      address: 'Olaya, Al-Khobar, KSA',
+      code: 'KSA',
+      role: 'Middle East Operations Hub',
+      phone: '+966 56 586 2042',
+      coordinates: { x: 57, y: 48 },
+      timezone: 'AST (UTC+3)'
+    },
+    {
+      country: 'KSA (Jeddah)',
+      city: 'Jeddah',
+      address: 'Saari Street, Jeddah, KSA',
+      code: 'KSA',
+      role: 'Regional Operations Hub',
+      phone: '+966 50 770 1476',
+      coordinates: { x: 55, y: 49 },
+      timezone: 'AST (UTC+3)'
+    },
+    {
       country: 'USA',
+      city: 'New York',
+      address: 'Americas Operations',
       code: 'USA',
       role: 'Strategic Partnerships & Americas Ops',
       coordinates: { x: 22, y: 40 },
       timezone: 'EST (UTC-5)'
     },
     {
-      country: 'KSA',
-      code: 'KSA',
-      role: 'Middle East Operations Hub',
-      phone: '+966 50 770 1476',
-      coordinates: { x: 57, y: 48 },
-      timezone: 'AST (UTC+3)'
-    },
-    {
       country: 'UAE',
+      city: 'Dubai',
+      address: 'Dubai, UAE',
       code: 'UAE',
       role: 'Regional Client Services',
       coordinates: { x: 60, y: 47 },
