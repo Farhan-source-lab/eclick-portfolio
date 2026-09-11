@@ -5,20 +5,20 @@ export const GlobalPresence = () => {
   return (
     <section className="py-28 md:py-36 bg-white border-b border-neutral-200/70 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
-        
+
         {/* Section Header */}
         <div data-reveal="header" className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 pb-8 border-b border-neutral-300/70">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-neutral-300 bg-white text-neutral-700 text-[11px] font-mono tracking-[0.2em] uppercase mb-4 shadow-2xs">
               <Globe className="w-3.5 h-3.5 text-blue-700" />
-              <span>( GLOBAL FOOTPRINT )</span>
+              <span>GLOBAL PRESENCE</span>
             </div>
             <h2 className="font-serif-display text-4xl sm:text-5xl lg:text-6xl text-neutral-950 font-normal tracking-tight leading-[1.08]">
-              Operating across <span className="italic">four key markets</span>.
+              Operating across <span className="italic">key markets</span>.
             </h2>
           </div>
           <div className="mt-4 sm:mt-0 text-[11px] font-mono text-neutral-500 uppercase tracking-widest">
-            SYNCHRONIZED OPERATIONS
+
           </div>
         </div>
 
@@ -66,7 +66,7 @@ export const GlobalPresence = () => {
 
               <div className="pt-6 mt-4 border-t border-neutral-100 text-[10px] font-mono text-neutral-400 uppercase tracking-widest flex items-center gap-1">
                 <MapPin className="w-3 h-3" />
-                <span>REGIONAL DEPLOYMENT</span>
+                <span>Clients Satisfied </span>
               </div>
             </div>
           ))}

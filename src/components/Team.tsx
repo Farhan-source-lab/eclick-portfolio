@@ -17,7 +17,7 @@ export const Team = () => {
             </h2>
           </div>
           <div className="mt-4 sm:mt-0 text-[11px] font-mono text-neutral-500 uppercase tracking-widest">
-            09 TEAM MEMBERS
+
           </div>
         </div>
 

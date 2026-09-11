@@ -300,7 +300,7 @@ export const SteppedTimeline: React.FC = () => {
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 pb-8 border-b border-neutral-300/70">
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-slate-300/80 bg-slate-100 text-slate-700 text-[10px] font-mono tracking-[0.25em] uppercase mb-4 shadow-2xs">
-              <span>PRZEKRÓJ E—01 / CROSS-SECTION A—A</span>
+              <span>How We Work</span>
             </div>
             <h2 className="font-serif-display text-3xl sm:text-4xl lg:text-5xl font-normal text-neutral-950 tracking-tight leading-tight">
               Architectural delivery from inception to continuous scale.
@@ -308,10 +308,10 @@ export const SteppedTimeline: React.FC = () => {
           </div>
           <div className="mt-4 md:mt-0 text-left md:text-right">
             <span className="text-xs font-mono text-neutral-500 uppercase tracking-widest block">
-              COORDINATES: HYD • NYC • RUH • DXB
+
             </span>
             <span className="text-[11px] font-mono text-slate-600 font-medium block mt-1">
-              SCROLL-DRIVEN ORTHOGONAL MESH
+
             </span>
           </div>
         </div>
