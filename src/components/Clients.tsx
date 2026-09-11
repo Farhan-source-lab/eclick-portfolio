@@ -5,30 +5,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Optical size presets so each brand logo shares balanced visual weight
-const getLogoSizing = (id: string) => {
-  switch (id) {
-    case 'sas-dental':
-      return 'h-14 sm:h-16 max-w-[140px]';
-    case 'gdh-academy':
-      return 'h-18 sm:h-22 max-w-[200px] scale-125';
-    case 'dynamic-production':
-      return 'h-16 sm:h-20 max-w-[210px] scale-125';
-    case 'wallcraft-panels':
-      return 'h-11 sm:h-13 max-w-[160px]';
-    case 'aim-united-global':
-      return 'h-20 sm:h-24 max-w-[210px] scale-135';
-    case 'mace-ai-academy':
-      return 'h-11 sm:h-13 max-w-[155px]';
-    case 'redesign-dental':
-      return 'h-10 sm:h-12 max-w-[160px]';
-    case 'amana':
-      return 'h-7 sm:h-9 max-w-[140px]';
-    case 'boxoo':
-      return 'h-9 sm:h-11 max-w-[155px]';
-    default:
-      return 'h-10 sm:h-12 max-w-[150px]';
+const getSpecificScaling = (id: string) => {
+  if (['aim-united-global', 'dynamic-production', 'gdh-academy', 'sas-dental'].includes(id)) {
+    return 'scale-[1.38] sm:scale-[1.48]';
   }
+  return '';
 };
 
 export const Clients = () => {
@@ -58,6 +39,7 @@ export const Clients = () => {
             trigger: logosRef.current,
             start: 'top 82%',
             toggleActions: 'play none none none',
+            markers: false,
           },
         }
       );
@@ -96,21 +78,21 @@ export const Clients = () => {
             </h2>
           </div>
 
-          {/* Pure Logos Grid: Generous Gap, Perfect Optical Sizing, 1-by-1 Fade In */}
+          {/* Pure Logos Grid: Uniform Sizing Across All Brand Logos */}
           <div
             ref={logosRef}
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-10 sm:gap-x-14 md:gap-x-16 gap-y-16 sm:gap-y-20 md:gap-y-24 items-center justify-items-center"
+            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-x-10 sm:gap-x-14 md:gap-x-16 gap-y-14 sm:gap-y-18 md:gap-y-20 items-center justify-items-center"
           >
             {clientsData.map((client) => (
               <div
                 key={client.id}
-                className="client-logo-unit w-full flex items-center justify-center p-2"
+                className="client-logo-unit h-16 sm:h-20 w-full flex items-center justify-center p-2"
                 title={client.name}
               >
                 <img
                   src={client.logoUrl}
                   alt={`${client.name} logo`}
-                  className={`w-auto object-contain select-none opacity-85 transition-opacity duration-300 hover:opacity-100 ${getLogoSizing(client.id)}`}
+                  className={`h-12 sm:h-16 w-auto max-w-[160px] sm:max-w-[185px] object-contain select-none opacity-85 transition-all duration-300 hover:opacity-100 ${getSpecificScaling(client.id)}`}
                   loading="lazy"
                 />
               </div>
@@ -139,6 +121,3 @@ export const Clients = () => {
     </div>
   );
 };
-
-
-
