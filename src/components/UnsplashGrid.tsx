@@ -13,7 +13,7 @@ export interface GalleryItem {
   tags: string[];
 }
 
-export const teamGalleryItems: GalleryItem[] = teamData.map((member, index) => ({
+const teamGalleryItems: GalleryItem[] = teamData.map((member, index) => ({
   id: index + 1,
   title: member.name,
   role: member.role,
@@ -184,7 +184,7 @@ function trapFocus(element: HTMLElement, event: KeyboardEvent) {
 
 function Modal({ selected, setSelected }: ModalProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
-  const [[, direction], setSlideState] = useState<[number | null, number]>([null, 0]);
+  const [direction, setDirection] = useState<number>(0);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const selectedIndex = selected ? VISIBLE_ITEMS.findIndex((i) => i.id === selected.id) : -1;
@@ -203,7 +203,7 @@ function Modal({ selected, setSelected }: ModalProps) {
       const total = VISIBLE_ITEMS.length;
       const nextIndex = (selectedIndex + delta + total) % total;
 
-      setSlideState([VISIBLE_ITEMS[nextIndex].id, delta]);
+      setDirection(delta);
       const next = VISIBLE_ITEMS[nextIndex];
       setSelected(next);
 
@@ -219,10 +219,6 @@ function Modal({ selected, setSelected }: ModalProps) {
 
   const goNext = useCallback(() => navigate(1), [navigate]);
   const goPrev = useCallback(() => navigate(-1), [navigate]);
-
-  useEffect(() => {
-    if (selected) setSlideState([selected.id, 0]);
-  }, [selected]);
 
   useEffect(() => {
     if (!selected) return;
@@ -248,7 +244,7 @@ function Modal({ selected, setSelected }: ModalProps) {
       document.removeEventListener('keydown', handleKeyDown);
       window.removeEventListener('popstate', handlePopState);
     };
-  }, [selected, handleClose, goNext, goPrev]);
+  }, [selected, handleClose, goNext, goPrev, setSelected]);
 
   if (!selected) return null;
 

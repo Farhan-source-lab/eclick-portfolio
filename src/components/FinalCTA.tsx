@@ -41,9 +41,11 @@ export const FinalCTA = () => {
           setDisplayText(currentTitle.slice(0, displayText.length - 1));
         }, 45);
       } else {
-        // Switch to next title once completely backspaced
-        setIsDeleting(false);
-        setTitleIndex((prev) => (prev + 1) % TITLES.length);
+        // Switch to next title once completely backspaced after a brief natural pause
+        timer = setTimeout(() => {
+          setIsDeleting(false);
+          setTitleIndex((prev) => (prev + 1) % TITLES.length);
+        }, 350);
       }
     }
 
