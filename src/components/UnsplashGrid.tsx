@@ -20,7 +20,7 @@ const teamGalleryItems: GalleryItem[] = teamData.map((member, index) => ({
   department: member.department,
   url: `/team/${member.id}.png`,
   description: member.bio || `${member.role} at Eclick Tech Solutions leading ${member.department}.`,
-  tags: [member.department, 'Leadership Core'],
+  tags: [member.department, member.department.includes('AI') ? 'AI & Innovation' : 'Leadership Core'],
 }));
 
 const VISIBLE_ITEMS = teamGalleryItems;

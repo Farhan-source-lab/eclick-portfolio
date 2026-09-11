@@ -37,9 +37,9 @@ export const teamData: TeamMember[] = [
   {
     id: 'syed-abdul-baseer',
     name: 'Syed Abdul Baseer',
-    role: 'Head of AI & Operations',
-    department: 'Artificial Intelligence & Engineering',
-    bio: 'Leading generative AI research, autonomous agent architectures, and streamlined engineering operations.',
+    role: 'AI Engineer',
+    department: 'AI Engineering',
+    bio: 'Developing intelligent generative AI models, LLM-powered autonomous agent architectures, and high-performance machine learning solutions.',
     initials: 'SB'
   },
   {
