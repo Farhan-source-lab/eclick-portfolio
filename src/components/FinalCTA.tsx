@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { ArrowRight, Search, CheckCircle2 } from 'lucide-react';
+import { Search, CheckCircle2 } from 'lucide-react';
 import { companyData } from '../data/company';
 
 const TITLES = [
@@ -20,7 +20,7 @@ export const FinalCTA = () => {
 
   useEffect(() => {
     const currentTitle = TITLES[titleIndex];
-    let timer: NodeJS.Timeout;
+    let timer: ReturnType<typeof setTimeout>;
 
     if (!isDeleting) {
       // Type forward character by character
